@@ -438,7 +438,7 @@
 </html> {% endcomment %}
 
 
-
+{% comment %} 
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -674,4 +674,393 @@
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
+</html> {% endcomment %}
+
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>FoodOptima - Project Overview</title>
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+    />
+    <style>
+      body {
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        margin: 0;
+        padding: 0;
+      }
+      .navbar {
+        background-color: #0a42f9;
+      }
+      .navbar-brand,
+      .nav-link {
+        color: #ffffff !important;
+        font-size: 1.2rem;
+        font-weight: bold;
+      }
+      .navbar-brand:hover,
+      .nav-link:hover {
+        color: #d4e2ff !important;
+      }
+      .btn-primary {
+        background-color: #4b82ef;
+        border: none;
+        border-radius: 7px;
+      }
+      .btn-primary:hover {
+        background-color: #4b82ef;
+      }
+      .hero-section {
+        position: relative;
+        background: linear-gradient(135deg, #2d5eff, #4a8cff);
+        color: white;
+        text-align: center;
+        padding: 100px 20px;
+      }
+      .hero-section h1 {
+        font-size: 3rem;
+        font-weight: bold;
+        margin-bottom: 20px;
+      }
+      .hero-section p {
+        font-size: 1.2rem;
+        margin-bottom: 30px;
+      }
+      .hero-section img {
+        position: absolute;
+        bottom: -50px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 80%;
+        border-radius: 20px;
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+      }
+
+      .section {
+        padding: 60px 20px;
+      }
+      .section-title {
+        font-size: 2.5rem;
+        font-weight: bold;
+        color: #2d5eff;
+        text-align: center;
+        margin-bottom: 40px;
+      }
+      .card {
+        border: none;
+        border-radius: 20px;
+        background-color: white;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        overflow: hidden;
+      }
+      .card:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+      }
+      .card-img-overlay {
+        background: rgba(45, 94, 255, 0.8);
+        color: white;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        height: 100%;
+        transition: all 0.3s ease;
+        opacity: 0;
+      }
+      .card:hover .card-img-overlay {
+        opacity: 1;
+      }
+      .card-text {
+        color: #6c757d;
+        text-align: justify;
+      }
+
+      .footer {
+        background-color: #2d5eff;
+        color: white;
+        text-align: center;
+        padding: 20px 0;
+        margin-top: 40px;
+      }
+      .footer a {
+        color: #ffcc80;
+        text-decoration: none;
+      }
+      .footer a:hover {
+        text-decoration: underline;
+      }
+
+      .hero-section {
+        position: relative;
+        background: linear-gradient(135deg, #2d5eff, #4a8cff);
+        color: white;
+        text-align: center;
+        padding: 100px 20px 150px; /* Increased bottom padding */
+      }
+
+      .hero-section img {
+        position: relative; /* Changed from absolute to relative */
+        margin-top: 20px; /* Optional margin to space out */
+        width: 100%;
+        border-radius: 20px;
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+      }
+
+      center {
+        font-weight: 700;
+        font-size: x-large;
+      }
+      /* Responsive Mobile Adjustments */
+      @media (max-width: 768px) {
+        .card-img-overlay {
+          opacity: 1; /* Always visible for mobile view */
+          position: static;
+          background: none;
+          color: #2d5eff; /* Adjust text color for better visibility */
+          padding: 10px;
+          text-align: justify;
+        }
+
+        .card-img-overlay h5 {
+          font-size: 1.2rem; /* Adjust heading size for mobile */
+        }
+
+        .card-img-overlay p {
+          font-size: 0.9rem; /* Smaller font size for paragraph text */
+          line-height: 1.4; /* Improve readability */
+        }
+      }
+
+      /* Responsive Footer Adjustments for Mobile */
+      @media (max-width: 768px) {
+        .footer {
+          font-size: 0.9rem; /* Smaller font size */
+          padding: 15px; /* Adjust padding */
+          line-height: 1.5; /* Improve readability */
+        }
+      }
+
+      /* Key Features Styling */
+      .card-text {
+        list-style: none;
+        padding: 0;
+        font-size: 1rem;
+        line-height: 1.8;
+        color: #6c757d;
+      }
+
+      .card-text li::before {
+        content: "✓ ";
+        color: #2d5eff; /* Blue checkmark */
+        font-weight: bold;
+      }
+
+      .img-fluid {
+        max-width: 100%;
+        height: auto;
+        border-radius: 10px;
+      }
+
+      /* Responsive Key Features Adjustments for Mobile */
+      @media (max-width: 768px) {
+        .section-title {
+          font-size: 1.8rem; /* Adjust section title size */
+          text-align: center;
+        }
+
+        .card-text {
+          font-size: 0.9rem; /* Smaller font size for features */
+          padding: 10px;
+          text-align: center; /* Align text to the left */
+        }
+
+        .card-text li {
+          margin-bottom: 10px; /* Add spacing between features */
+        }
+
+        .img-fluid {
+          margin-top: 20px; /* Add spacing above the image */
+        }
+
+        .row {
+          flex-direction: column; /* Stack the rows for mobile */
+          align-items: center;
+        }
+
+        .col-md-6 {
+          margin-bottom: 20px; /* Add spacing between stacked items */
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Navbar -->
+
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand font-weight-bold" href="{% url 'main_page' %}">
+            <h1 style="font-size: 1.8rem; margin: 0; color: #000000;">FoodOptima</h1>
+        </a>
+        <button class="navbar-toggler mx-auto" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ml-auto">
+                <!-- Explore Button -->
+                <li class="nav-item">
+                    <a href="{% url 'login' %}" class="btn btn-primary nav-link text-white ml-3 font-weight-bold" style="padding: 10px 20px; border-radius: 5px;">
+                        Explore
+                    </a>
+                </li>
+                <!-- About Us Link -->
+                <li class="nav-item">
+                    <a href="{% url 'about_us' %}" class="btn btn-primary nav-link text-white ml-3 font-weight-bold" style="padding: 10px 20px; border-radius: 5px;">
+                        About Us
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+    
+
+    <!-- Hero Section -->
+    <section class="hero-section">
+      <h1>Welcome to FoodOptima</h1>
+      <p>Save Food. Save Lives. Save Money.</p>
+    </section>
+
+    <!-- Project Overview -->
+    <section class="section bg-light">
+      <h2 class="section-title">Project Overview</h2>
+      <div class="container">
+        <div class="row">
+          <div class="col-md-4 mb-4">
+            <div class="card">
+              <div class="card-img-overlay">
+                <h5>Streamlined Efficiency</h5>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-8">
+            <p class="card-text">
+              FoodOptima is a web application designed to streamline meal
+              planning in organizations. By gathering employee responses
+              regarding their meal requirements for the next working day,
+              FoodOptima ensures that meal orders align with actual demand,
+              reducing waste and saving costs.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Problem and Solution -->
+    <section class="section">
+      <h2 class="section-title">Problem & Solution</h2>
+      <div class="container">
+        <div class="row">
+          <!-- Problem Statement -->
+          <div class="col-md-6 mb-4">
+            <div class="card">
+              <img
+                src="https://via.placeholder.com/400x300.png?text=Food+Waste+Problem"
+                class="card-img"
+                alt="Food Waste Problem"
+              />
+              <div class="card-img-overlay">
+                <h5>
+                  Many organizations struggle with over-ordering or
+                  under-ordering meals for employees, leading to food waste and
+                  increased expenses. Without a reliable system for gathering
+                  daily meal requirements, businesses often find themselves
+                  wasting resources or failing to meet demand.
+                </h5>
+              </div>
+            </div>
+            <div class="mt-3">
+              <p>
+                <!-- Many organizations struggle with over-ordering or under-ordering
+                meals for employees, leading to food waste and increased
+                expenses. Without a reliable system for gathering daily meal
+                requirements, businesses often find themselves wasting resources
+                or failing to meet demand. -->
+                <center>Problem</center>
+              </p>
+            </div>
+          </div>
+          <!-- Solution -->
+          <div class="col-md-6 mb-4">
+            <div class="card">
+              <img
+                src="https://via.placeholder.com/400x300.png?text=Team+Solution"
+                class="card-img"
+                alt="Team Planning Solution"
+              />
+              <div class="card-img-overlay">
+                <h5>
+                  FoodOptima automates the process of collecting meal
+                  preferences from employees for the upcoming workday. Responses
+                  are automatically saved, giving management an accurate count
+                  of how many meals to prepare or order, ensuring optimal meal
+                  planning.
+                </h5>
+              </div>
+            </div>
+            <div class="mt-3">
+              <p>
+                <!-- FoodOptima automates the process of collecting meal preferences
+                from employees for the upcoming workday. Responses are
+                automatically saved, giving management an accurate count of how
+                many meals to prepare or order, ensuring optimal meal planning. -->
+                <center>Solution</center>
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Key Features -->
+    <section class="section bg-light">
+      <h2 class="section-title">Key Features</h2>
+      <div class="container">
+        <div class="row">
+          <div class="col-md-6">
+            <ul class="card-text">
+              <li>Automated Email Notifications</li>
+              <li>Real-Time Data Collection</li>
+              <li>Customizable Meal Preferences</li>
+              <li>Detailed Reports for Optimization</li>
+            </ul>
+          </div>
+          <div class="col-md-6">
+            <img
+              src="https://via.placeholder.com/600x400.png?text=Features"
+              alt="Features Representation"
+              class="img-fluid rounded"
+            />
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+      <p>
+        For support, email us at
+        <a href="mailto:elaraa.solutions@gmail.com"
+          >elaraa.solutions@gmail.com</a
+        >
+      </p>
+    </footer>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  </body>
 </html>
