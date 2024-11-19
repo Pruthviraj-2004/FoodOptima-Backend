@@ -72,16 +72,16 @@
         <div class="card-header">{{ title }}</div>
         <div class="card-body">            
             <p class="question">Will you be having lunch with us on {{ date }}?</p>
-            {% comment %} 
             <div class="response-buttons">
-                <a href="https://practicehost4.pythonanywhere.com/api/response/{{ employee_id }}/yes/" class="response-button yes">Yes</a>
-                <a href="https://practicehost4.pythonanywhere.com/api/response/{{ employee_id }}/no/" class="response-button no">No</a>
+                <a href="https://foodoptima.pythonanywhere.com/api/response/{{ employee_id }}/yes/" class="response-button yes">Yes</a>
+                <a href="https://foodoptima.pythonanywhere.com/api/response/{{ employee_id }}/no/" class="response-button no">No</a>
             </div> 
-            {% endcomment %}
+            {% comment %} 
             <div class="response-buttons">
                 <a href="http://127.0.0.1:8000/api/response/{{ employee_id }}/yes/" class="response-button">Yes</a>
                 <a href="http://127.0.0.1:8000/api/response/{{ employee_id }}/no/" class="response-button no">No</a>
             </div>
+            {% endcomment %}
             {{ body }}
         </div>
         <div class="card-footer">{{ sign }}</div>

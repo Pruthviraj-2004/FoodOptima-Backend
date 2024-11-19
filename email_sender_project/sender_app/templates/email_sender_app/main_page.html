@@ -523,28 +523,31 @@
 <body>
 
     <!-- Navbar -->
-    <nav class="navbar navbar-expand-lg navbar-light">
-        <a class="navbar-brand font-weight-bold" href="#">
-            <h1 style="font-size: 1.8rem; margin: 0;">FoodOptima</h1>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand font-weight-bold" href="{% url 'main_page' %}">
+            <h1 style="font-size: 1.8rem; margin: 0; color: #007bff;">FoodOptima</h1>
         </a>
         <button class="navbar-toggler mx-auto" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav ml-auto">
+                <!-- Explore Button -->
                 <li class="nav-item">
-                    <a href="{% url 'login' %}" class="btn btn-primary nav-link text-white ml-3 font-weight-bold">
-                        <h4 style="font-size: 1.2rem; margin: 0;">Explore</h4>
+                    <a href="{% url 'login' %}" class="btn btn-primary nav-link text-white ml-3 font-weight-bold" style="padding: 10px 20px; border-radius: 5px;">
+                        Explore
                     </a>
                 </li>
+                <!-- About Us Link -->
                 <li class="nav-item">
-                    <a class="nav-link font-weight-bold" href="#">
-                        <h4 style="font-size: 1.2rem; margin: 0;">About Us</h4>
+                    <a class="nav-link font-weight-bold ml-3" href="{% url 'about_us' %}" style="font-size: 1.2rem; color: #007bff;">
+                        About Us
                     </a>
                 </li>
             </ul>
         </div>
     </nav>
+    
 
     <div class="container-fluid">
         <!-- Intro Card (centered content) -->

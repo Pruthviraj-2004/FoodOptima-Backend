@@ -89,15 +89,6 @@ FILE_UPLOAD_HANDLERS = [
 
 DATA_UPLOAD_MAX_MEMORY_SIZE = 2621440
 
-# EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-# EMAIL_HOST = 'smtp.office365.com'
-# EMAIL_PORT = 587  # You're using this port for TLS
-# EMAIL_USE_TLS = True  # TLS should be enabled
-# EMAIL_USE_SSL = False  # Ensure SSL is False when using TLS
-# EMAIL_HOST_USER = 'rajsavanur2003@outlook.com'  # Your Outlook email
-# EMAIL_HOST_PASSWORD = 'pfzrbkjbsffmpjlu'  # App password, not your usual password
-# DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
-
 AUTHENTICATION_BACKENDS = [
     'sender_app.auth_backends.CompanyManagerBackend',
     'django.contrib.auth.backends.ModelBackend',  # Keep this if you want Django User support as well

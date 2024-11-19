@@ -45,13 +45,11 @@ urlpatterns = [
     path('export-responses-employee/<int:employee_id>/', ExportResponsesByEmployeeView.as_view(), name='export_employee_responses'),
     path('export-month-summary/', ExportMonthlySummaryView.as_view(), name='export_month_summary'),
 
+    path('about-us/', AboutUsView.as_view(), name='about_us'),
 
 
     path('sssend-email/', send_outlook_email, name='send_email'),
 
-
-
-    path('about-us/', AboutUsView.as_view(), name='about_us'),
 
     # path('send-email/<int:employee_id>/', SendConfirmationEmail.as_view(), name='send_email'),
 
