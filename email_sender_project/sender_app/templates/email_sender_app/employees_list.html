@@ -1,0 +1,323 @@
+{% extends 'email_sender_app/base.html' %}
+
+{% block title %}Employee List{% endblock %}
+
+{% block content %}
+<style>
+    .delete-link {
+        color: red;
+        text-decoration: none;
+        font-weight: bold;
+    }
+    .delete-link:hover {
+        color: darkred;
+        text-decoration: underline;
+    }
+</style>
+<div class="container" style="background-color: #ffffff; padding: 20px; border-radius: 8px; box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1); margin-top: 40px; margin-bottom: 40px; max-width: 900px; width: 95%;">
+    <h1 class="text-center my-4" style="color: #333; margin-bottom: 20px;">Employee List</h1>
+
+    {% if messages %}
+        {% for message in messages %}
+            <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+                {{ message }}
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+        {% endfor %}
+    {% endif %}
+
+    <div class="btn-group mb-3">
+        <a href="{% url 'dashboard' %}" class="btn btn-secondary mr-2">Back to Dashboard</a>
+        <a href="{% url 'add_employee' %}" class="btn btn-primary mr-2">Add New Employee</a>
+        <a href="{% url 'upload_file' %}" class="btn btn-primary mr-2">Upload Employee File</a>
+        <a href="{% url 'employee_export' %}?format=csv" class="btn btn-primary mr-2">Export Employees (CSV)</a>
+        <a href="{% url 'employee_export' %}?format=xls" class="btn btn-secondary">Export Employees (XLS)</a>
+    </div>
+
+    <div class="table-responsive">
+        <table class="table table-striped" style="margin-top: 20px;">
+            <thead class="thead-light">
+                <tr>
+                    <th>SL No</th>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Actions</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% load custom_filters %}
+                {% for employee in page_obj %}
+                <tr>
+                    <td>{{ page_obj.number|add:-1|times:10|add:forloop.counter }}</td>
+                    <td>{{ employee.name }}</td>
+                    <td>{{ employee.email }}</td>
+                    <td>
+                        <a href="{% url 'update_employee' employee.user_id %}" class="btn btn-primary btn-sm">Update</a>
+                    </td>
+                    <td>
+                        <a href="javascript:void(0);" onclick="deleteEmployee({{ employee.user_id }})" class="delete-link">Delete</a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <nav aria-label="Page navigation example">
+        <ul class="pagination justify-content-center">
+            {% if page_obj.has_previous %}
+                <li class="page-item">
+                    <a class="page-link" href="?page=1" aria-label="First">
+                        <span aria-hidden="true">&laquo;&laquo;</span>
+                    </a>
+                </li>
+                <li class="page-item">
+                    <a class="page-link" href="?page={{ page_obj.previous_page_number }}" aria-label="Previous">
+                        <span aria-hidden="true">&laquo;</span>
+                    </a>
+                </li>
+            {% else %}
+                <li class="page-item disabled">
+                    <span class="page-link">&laquo;&laquo;</span>
+                </li>
+                <li class="page-item disabled">
+                    <span class="page-link">&laquo;</span>
+                </li>
+            {% endif %}
+            {% for num in page_obj.paginator.page_range %}
+                {% if page_obj.number == num %}
+                    <li class="page-item active"><span class="page-link">{{ num }}</span></li>
+                {% elif num > page_obj.number|add:'-5' and num < page_obj.number|add:'5' %}
+                    <li class="page-item"><a class="page-link" href="?page={{ num }}">{{ num }}</a></li>
+                {% endif %}
+            {% endfor %}
+            {% if page_obj.has_next %}
+                <li class="page-item">
+                    <a class="page-link" href="?page={{ page_obj.next_page_number }}" aria-label="Next">
+                        <span aria-hidden="true">&raquo;</span>
+                    </a>
+                </li>
+                <li class="page-item">
+                    <a class="page-link" href="?page={{ page_obj.paginator.num_pages }}" aria-label="Last">
+                        <span aria-hidden="true">&raquo;&raquo;</span>
+                    </a>
+                </li>
+            {% else %}
+                <li class="page-item disabled">
+                    <span class="page-link">&raquo;</span>
+                </li>
+                <li class="page-item disabled">
+                    <span class="page-link">&raquo;&raquo;</span>
+                </li>
+            {% endif %}
+        </ul>
+    </nav>
+</div>
+
+<script> 
+    function deleteEmployee(userId) {
+        if (confirm("Are you sure you want to delete this employee?")) {
+            fetch(`/api/delete-employee/${userId}/`, {
+                method: 'DELETE',
+                headers: {
+                    'X-CSRFToken': '{{ csrf_token }}',
+                    'Content-Type': 'application/json'
+                },
+            })
+            .then(response => {
+                if (response.ok) {
+                    window.location.reload();
+                } else {
+                    alert('Failed to delete employee.');
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('An error occurred while deleting the employee.');
+            });
+        }
+    }
+</script>
+{% endblock %}
+
+
+
+{% comment %} <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Employee List</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            background-color: #f8f9fa;
+        }
+        .container {
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+            margin-top: 40px;
+            margin-bottom: 40px;
+            max-width: 900px; /* Limit max width for larger screens */
+            width: 95%; /* Set to 95% for small screens */
+        }
+        h1 {
+            color: #333;
+            margin-bottom: 20px;
+        }
+        .table {
+            margin-top: 20px;
+        }
+        .btn-space {
+            margin-right: 10px;
+        }
+        .delete-link {
+            color: red;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        .delete-link:hover {
+            color: darkred;
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Employee List</h1>
+
+        {% if messages %}
+            {% for message in messages %}
+                <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+                    {{ message }}
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+            {% endfor %}
+        {% endif %}
+
+        <div class="btn-group">
+            <a href="{% url 'dashboard' %}" class="btn btn-secondary btn-space">Back to Dashboard</a>
+            <a href="{% url 'add_employee' %}" class="btn btn-primary btn-space">Add New Employee</a>
+            <a href="{% url 'upload_file' %}" class="btn btn-primary btn-space">Upload Employee File</a>
+            <a href="{% url 'employee_export' %}?format=csv" class="btn btn-primary btn-space">Export Employees (CSV)</a>
+            <a href="{% url 'employee_export' %}?format=xls" class="btn btn-secondary btn-space">Export Employees (XLS)</a>
+        </div>
+
+        <div class="table-responsive">
+            <table class="table">
+                <thead class="thead-light">
+                    <tr>
+                        <th>SL No</th>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Actions</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% load custom_filters %}
+                    {% for employee in page_obj %}
+                    <tr>
+                        <td>{{ page_obj.number|add:-1|times:10|add:forloop.counter }}</td>
+                        <td>{{ employee.name }}</td>
+                        <td>{{ employee.email }}</td>
+                        <td>
+                            <a href="{% url 'update_employee' employee.user_id %}" class="btn btn-primary btn-sm">Update</a> <!-- Update Button -->
+                        </td>
+                        <td>
+                            <a href="javascript:void(0);" onclick="deleteEmployee({{ employee.user_id }})" class="delete-link">Delete</a> <!-- Delete as link -->
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+        <nav aria-label="Page navigation example">
+            <ul class="pagination justify-content-center">
+                {% if page_obj.has_previous %}
+                    <li class="page-item">
+                        <a class="page-link" href="?page=1" aria-label="First">
+                            <span aria-hidden="true">&laquo;&laquo;</span>
+                        </a>
+                    </li>
+                    <li class="page-item">
+                        <a class="page-link" href="?page={{ page_obj.previous_page_number }}" aria-label="Previous">
+                            <span aria-hidden="true">&laquo;</span>
+                        </a>
+                    </li>
+                {% else %}
+                    <li class="page-item disabled">
+                        <span class="page-link">&laquo;&laquo;</span>
+                    </li>
+                    <li class="page-item disabled">
+                        <span class="page-link">&laquo;</span>
+                    </li>
+                {% endif %}
+                {% for num in page_obj.paginator.page_range %}
+                    {% if page_obj.number == num %}
+                        <li class="page-item active"><span class="page-link">{{ num }}</span></li>
+                    {% elif num > page_obj.number|add:'-5' and num < page_obj.number|add:'5' %}
+                        <li class="page-item"><a class="page-link" href="?page={{ num }}">{{ num }}</a></li>
+                    {% endif %}
+                {% endfor %}
+                {% if page_obj.has_next %}
+                    <li class="page-item">
+                        <a class="page-link" href="?page={{ page_obj.next_page_number }}" aria-label="Next">
+                            <span aria-hidden="true">&raquo;</span>
+                        </a>
+                    </li>
+                    <li class="page-item">
+                        <a class="page-link" href="?page={{ page_obj.paginator.num_pages }}" aria-label="Last">
+                            <span aria-hidden="true">&raquo;&raquo;</span>
+                        </a>
+                    </li>
+                {% else %}
+                    <li class="page-item disabled">
+                        <span class="page-link">&raquo;</span>
+                    </li>
+                    <li class="page-item disabled">
+                        <span class="page-link">&raquo;&raquo;</span>
+                    </li>
+                {% endif %}
+            </ul>
+        </nav>
+    </div>
+
+    <script>
+        function deleteEmployee(userId) {
+            if (confirm("Are you sure you want to delete this employee?")) {
+                fetch(`/api/delete-employee/${userId}/`, {
+                    method: 'DELETE',
+                    headers: {
+                        'X-CSRFToken': '{{ csrf_token }}',
+                        'Content-Type': 'application/json'
+                    },
+                })
+                .then(response => {
+                    if (response.ok) {
+                        window.location.reload();
+                    } else {
+                        alert('Failed to delete employee.');
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    alert('An error occurred while deleting the employee.');
+                });
+            }
+        }
+    </script>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html> {% endcomment %}

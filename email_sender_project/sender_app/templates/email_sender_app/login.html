@@ -1,0 +1,147 @@
+{% extends 'email_sender_app/base.html' %}
+
+{% block title %}Manager Login{% endblock %}
+
+{% block content %}
+<style>
+    /* Centering the login card within the container */
+    .login-container {
+        max-width: 500px;
+        margin: 50px auto;
+    }
+
+    .card-title {
+        font-size: 1.5rem;
+        font-weight: bold;
+    }
+
+    .alert-info {
+        font-size: 0.9rem;
+    }
+</style>
+
+<div class="login-container">
+    <div class="card mt-5">
+        <div class="card-body">
+            <h2 class="card-title text-center">Manager Login</h2>
+
+            {% if error %}
+                <div class="alert alert-danger" role="alert">
+                    {{ error }}
+                </div>
+            {% endif %}
+
+            {% if messages %}
+                {% for message in messages %}
+                    <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+                        {{ message }}
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                {% endfor %}
+            {% endif %}
+
+            <form method="POST" action="{% url 'login' %}">
+                {% csrf_token %}
+                <div class="form-group">
+                    <label for="email">Email:</label>
+                    <input type="email" id="email" name="email" class="form-control" placeholder="Enter the email" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="password">Password:</label>
+                    <input type="password" id="password" name="password" class="form-control" placeholder="Enter the Password" required>
+                </div>
+
+                <div class="alert alert-info" role="alert">
+                    For trial use these login credentials:<br>
+                    <strong>Email:</strong> photo4pruthvi@gmail.com<br>
+                    <strong>Password:</strong> Testpassword1
+                </div>
+
+                <button type="submit" class="btn btn-primary btn-block">Login</button>
+            </form>                      
+
+            <div class="text-center mt-3">
+                <p>For sign up <a href="{% url 'add_company_or_manager' %}">click here</a></p>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+
+
+
+{% comment %} <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <title>Manager Login</title>
+</head>
+<body class="bg-light">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <div class="card mt-5">
+                    <div class="card-body">
+                        <h2 class="card-title text-center">Manager Login</h2>
+                        
+                        {% if error %}
+                            <div class="alert alert-danger" role="alert">
+                                {{ error }}
+                            </div>
+                        {% endif %}
+
+                        <!-- Displaying alert messages -->
+                        {% if messages %}
+                            {% for message in messages %}
+                                <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+                                    {{ message }}
+                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                            {% endfor %}
+                        {% endif %}
+                        
+                        <form method="POST" action="{% url 'login' %}">
+                            {% csrf_token %}
+                            <div class="form-group">
+                                <label for="email">Email:</label>
+                                <input type="email" id="email" name="email" class="form-control" placeholder="Enter the email" required>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="password">Password:</label>
+                                <input type="password" id="password" name="password" class="form-control" placeholder="Enter the Password" required>
+                            </div>
+
+                            <div class="alert alert-info" role="alert">
+                                For trial use these login credentials:<br>
+                                <strong>Email:</strong> photo4pruthvi@gmail.com<br>
+                                <strong>Password:</strong> Testpassword1
+                            </div>
+                            
+                            <button type="submit" class="btn btn-primary btn-block">Login</button>
+                        </form>                      
+
+                        <div class="text-center mt-3">
+                            <p>For sign up <a href="{% url 'add_company_or_manager' %}">click here</a></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Optional JavaScript; choose one of the two! -->
+    <!-- Option 1: jQuery and Bootstrap Bundle (includes Popper) -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html> {% endcomment %}

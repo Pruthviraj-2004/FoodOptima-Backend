@@ -1,0 +1,36 @@
+{% extends 'email_sender_app/base.html' %}
+
+{% block title %}About Us{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="card">
+        <div class="row g-0">
+            <!-- Left Partition: Photo -->
+            <div class="col-md-4">
+                {% load static %}
+                <img src="{% static 'images/PruthvirajPhoto.jpg' %}" 
+                     alt="Pruthviraj Photo" 
+                     class="img-fluid rounded-start">
+            </div>
+            <!-- Right Partition: Info -->
+            <div class="col-md-8">
+                <div class="card-body">
+                    <h5 class="card-title">About Me</h5>
+                    <p class="card-text">
+                        <strong>Name:</strong> Pruthviraj M Savanur<br>
+                        <strong>LinkedIn:</strong> 
+                        <a href="https://www.linkedin.com/in/pruthviraj-m-savanur-286294260/" target="_blank">
+                            LinkedIn Profile
+                        </a><br>
+                        <strong>GitHub:</strong> 
+                        <a href="https://github.com/Pruthviraj-2004" target="_blank">
+                            GitHub Profile
+                        </a>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,307 @@
+{% extends 'email_sender_app/base.html' %}
+
+{% block title %}View Responses (Month){% endblock %}
+
+{% block content %}
+<style>
+    body {
+        background-color: #f8f9fa;
+    }
+    .container {
+        background-color: #ffffff;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+        margin: 20px auto;
+        max-width: 100%;
+        width: 90%;
+    }
+    h1, h2 {
+        color: #333;
+        margin-bottom: 20px;
+    }
+    .table {
+        margin-top: 20px;
+    }
+    /* Table header and row styling */
+    .table th {
+        background-color: #007bff;
+        color: white;
+        font-weight: bold;
+        text-align: center;
+    }
+    .table td, .table th {
+        border: 1px solid #dee2e6;
+        padding: 12px 15px;
+        text-align: center;
+    }
+    .table tbody tr:hover {
+        background-color: #f2f2f2;
+    }
+    .form-inline {
+        margin-bottom: 20px;
+        display: flex;
+        align-items: center;
+    }
+    .btn-primary, .btn-secondary, .btn-export {
+        margin-top: 20px;
+    }
+    .alert {
+        margin-top: 20px;
+    }
+    .chart-container {
+        text-align: center;
+        margin-top: 20px;
+    }
+    .chart-container img {
+        max-width: 100%;
+        height: auto;
+    }
+</style>
+
+<a href="{% url 'dashboard' %}" class="btn btn-secondary mt-3">Back to Dashboard</a>
+
+<h1>View Responses (Month)</h1>
+
+{% if messages %}
+    {% for message in messages %}
+        <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+            {{ message }}
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    {% endfor %}
+{% endif %}
+
+<form action="{% url 'view_responses_by_month' %}" method="get" class="form-inline mb-4">
+    <div class="form-group">
+        <label for="monthSelect" class="mr-2">Select Month:</label>
+        <select id="monthSelect" name="month" class="form-control mr-2">
+            {% for month in months %}
+                <option value="{{ month.number|stringformat:"02d" }}" {% if month.number|stringformat:"02d" == selected_month %}selected{% endif %}>
+                    {{ month.name }}
+                </option>
+            {% endfor %}
+        </select>
+    </div>
+    <button type="submit" class="btn btn-primary">Show Responses</button>
+</form>
+
+{% if month_name %}
+    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#graphModal">
+        View Graph
+    </button>
+    <a href="{% url 'export_month_summary' %}?month={{ selected_month }}" class="btn btn-success btn-export">Export Month Summary</a>
+{% endif %}
+
+{% if month_name %}
+    <h2>Responses for {{ month_name }}</h2>
+    <table class="table table-bordered table-striped">
+        <thead>
+            <tr>
+                <th>Date</th>
+                <th>Total Responses</th>
+                <th>Yes Count</th>
+                <th>No Count</th>
+                <th>Not Responded</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for response in responses %}
+            <tr>
+                <td>{{ response.day|date:"M d, Y (l)" }}</td>
+                <td>{{ response.total }}</td>
+                <td>{{ response.yes_count }}</td>
+                <td>{{ response.no_count }}</td>
+                <td>{{ response.not_responded_count }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% else %}
+    <p>Please select a month to view responses.</p>
+{% endif %}
+
+<!-- Modal for displaying the graph -->
+<div class="modal fade" id="graphModal" tabindex="-1" aria-labelledby="graphModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="graphModalLabel">Response Distribution Graph</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="chart-container">
+                    {% if chart_image %}
+                        <img src="data:image/png;base64,{{ chart_image }}" alt="Response Bar Chart">
+                    {% else %}
+                        <p>No data available to display the graph.</p>
+                    {% endif %}
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+
+
+{% comment %} <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>View Responses (Month)</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            background-color: #f8f9fa;
+        }
+        .container {
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+            margin: 20px auto;
+            max-width: 100%;
+            width: 90%;
+        }
+        h1, h2 {
+            color: #333;
+            margin-bottom: 20px;
+        }
+        .table {
+            margin-top: 20px;
+        }
+        th {
+            background-color: #f0f0f0;
+            color: #333;
+        }
+        .form-inline {
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+        }
+        .btn-primary, .btn-secondary, .btn-export {
+            margin-top: 20px;
+        }
+        .alert {
+            margin-top: 20px;
+        }
+        /* Style for the modal and chart container */
+        .chart-container {
+            text-align: center;
+            margin-top: 20px;
+        }
+        .chart-container img {
+            max-width: 100%;
+            height: auto;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <a href="{% url 'dashboard' %}" class="btn btn-secondary mt-3">Back to Dashboard</a>
+
+        <h1>View Responses (Month)</h1>
+
+        {% if messages %}
+            {% for message in messages %}
+                <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+                    {{ message }}
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+            {% endfor %}
+        {% endif %}
+
+        <form action="{% url 'view_responses_by_month' %}" method="get" class="form-inline mb-4">
+            <div class="form-group">
+                <label for="monthSelect" class="mr-2">Select Month:</label>
+                <select id="monthSelect" name="month" class="form-control mr-2">
+                    {% for month in months %}
+                        <option value="{{ month.number|stringformat:"02d" }}" {% if month.number|stringformat:"02d" == selected_month %}selected{% endif %}>
+                            {{ month.name }}
+                        </option>
+                    {% endfor %}
+                </select>
+            </div>
+            <button type="submit" class="btn btn-primary">Show Responses</button>
+        </form>
+
+        <!-- Export button -->
+        {% if month_name %}
+            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#graphModal">
+                View Graph
+            </button>
+            <a href="{% url 'export_month_summary' %}?month={{ selected_month }}" class="btn btn-success btn-export">Export Month Summary</a>
+        {% endif %}
+
+        {% if month_name %}
+            <h2>Responses for {{ month_name }}</h2>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Date</th>
+                        <th>Total Responses</th>
+                        <th>Yes Count</th>
+                        <th>No Count</th>
+                        <th>Not Responded</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for response in responses %}
+                    <tr>
+                        <td>{{ response.day|date:"M d, Y (l)" }}</td>
+                        <td>{{ response.total }}</td>
+                        <td>{{ response.yes_count }}</td>
+                        <td>{{ response.no_count }}</td>
+                        <td>{{ response.not_responded_count }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        {% else %}
+            <p>Please select a month to view responses.</p>
+        {% endif %}
+    </div>
+
+    <!-- Modal for displaying the graph -->
+    <div class="modal fade" id="graphModal" tabindex="-1" aria-labelledby="graphModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="graphModalLabel">Response Distribution Graph</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <!-- Display the pie chart image -->
+                    <div class="chart-container">
+                        {% if chart_image %}
+                            <img src="data:image/png;base64,{{ chart_image }}" alt="Response Bar Chart">
+                        {% else %}
+                            <p>No data available to display the graph.</p>
+                        {% endif %}
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS and dependencies -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html> {% endcomment %}

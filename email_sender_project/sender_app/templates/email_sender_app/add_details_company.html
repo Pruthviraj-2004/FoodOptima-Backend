@@ -1,0 +1,92 @@
+{% extends 'email_sender_app/base.html' %}
+
+{% block title %}Add Company or Manager{% endblock %}
+
+{% block content %}
+<style>
+    /* Centered form container */
+    .form-container {
+        background-color: #ffffff;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+        max-width: 600px;
+        margin: 40px auto;
+    }
+
+    h1 {
+        color: #333;
+        margin-bottom: 20px;
+        text-align: center;
+    }
+
+    .btn {
+        width: 100%;
+        margin-top: 10px;
+    }
+</style>
+
+<div class="form-container">
+    <h1>Add Company or Manager</h1>
+
+    <a href="{% url 'add_company' %}" class="btn btn-primary">Add New Company</a>
+    <a href="{% url 'add_company_manager_details' %}" class="btn btn-secondary">Add New Manager</a>
+
+    <div class="text-center mt-3">
+        <p>For Login <a href="{% url 'login' %}">click here</a></p>
+    </div>
+</div>
+
+{% endblock %}
+
+
+
+{% comment %} <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <title>Add Company or Manager</title>
+    <style>
+        body {
+            background-color: #f8f9fa;
+        }
+        .container {
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+            margin-top: 40px;
+            margin-bottom: 40px;
+            max-width: 600px; /* Limit width for larger screens */
+            width: 90%; /* Set to 90% for smaller screens */
+        }
+        h1 {
+            color: #333;
+            margin-bottom: 20px;
+        }
+        .btn {
+            width: 100%; /* Full width buttons */
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Add Company or Manager</h1>
+
+        <a href="{% url 'add_company' %}" class="btn btn-primary">Add New Company</a>
+        <a href="{% url 'add_company_manager_details' %}" class="btn btn-secondary">Add New Manager</a>
+
+        <div class="text-center mt-3">
+            <p>For Login <a href="{% url 'login' %}">click here</a></p>
+        </div>
+
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html> {% endcomment %}

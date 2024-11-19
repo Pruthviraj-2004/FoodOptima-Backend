@@ -1,0 +1,208 @@
+{% extends 'email_sender_app/base.html' %}
+
+{% block title %}Update Employee Name{% endblock %}
+
+{% block content %}
+<style>
+    /* Form container styling */
+    .form-container {
+        background-color: white;
+        padding: 40px;
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        max-width: 500px;
+        margin: 50px auto; /* Top margin to push the form down slightly from the top */
+        width: 100%;
+    }
+
+    .btn-container {
+        display: flex;
+        gap: 10px; /* Adds space between buttons */
+        margin-bottom: 20px; /* Adds space below the button container */
+    }
+
+    h1 {
+        text-align: center;
+        color: #333;
+        margin-bottom: 20px;
+    }
+
+    label {
+        display: block;
+        margin-bottom: 8px;
+        font-weight: bold;
+        color: #555;
+    }
+
+    input[type="text"] {
+        width: 100%;
+        padding: 10px;
+        margin-bottom: 15px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        font-size: 16px;
+    }
+
+    button[type="submit"] {
+        background-color: #28a745;
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        font-size: 16px;
+        cursor: pointer;
+        border-radius: 4px;
+        display: block;
+        width: 100%;
+        margin-top: 10px;
+    }
+
+    button[type="submit"]:hover {
+        background-color: #218838;
+    }
+
+    /* Error message styling */
+    .error-list {
+        margin-top: 20px;
+        padding: 10px;
+        background-color: #ffdddd;
+        border: 1px solid #f5c6cb;
+        border-radius: 4px;
+        list-style-type: none;
+    }
+
+    .error-list li {
+        color: #721c24;
+        font-size: 14px;
+    }
+</style>
+
+<div class="form-container">
+    <div class="btn-container">
+        <a href="{% url 'employee_list' %}" class="btn btn-primary">Back to Employees List</a>
+        <a href="{% url 'dashboard' %}" class="btn btn-secondary">Back to Dashboard</a>
+    </div>
+    
+    <h1>Update Employee Name</h1>
+    
+    <form method="POST">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Update Name</button>
+    </form>
+
+    {% if form.errors %}
+        <ul class="error-list">
+            {% for field in form %}
+                {% for error in field.errors %}
+                    <li>{{ field.label }}: {{ error }}</li>
+                {% endfor %}
+            {% endfor %}
+        </ul>
+    {% endif %}
+</div>
+
+{% endblock %}
+
+
+
+{% comment %} <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Update Employee Name</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            padding: 20px;
+        }
+
+        .container {
+            background-color: white;
+            padding: 40px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            max-width: 500px;
+            margin: 50px auto; /* Top margin to push the form down slightly from the top */
+            width: 100%;
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+
+        form {
+            margin-top: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+            color: #555;
+        }
+
+        input[type="text"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 16px;
+        }
+
+        button[type="submit"] {
+            background-color: #28a745;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            border-radius: 4px;
+            display: block;
+            width: 100%;
+            margin-top: 10px;
+        }
+
+        button[type="submit"]:hover {
+            background-color: #218838;
+        }
+
+        ul {
+            margin-top: 20px;
+            padding: 10px;
+            background-color: #ffdddd;
+            border: 1px solid #f5c6cb;
+            border-radius: 4px;
+            list-style-type: none;
+        }
+
+        ul li {
+            color: #721c24;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Update Employee Name</h1>
+        <form method="POST">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit">Update Name</button>
+        </form>
+
+        {% if form.errors %}
+            <ul>
+                {% for field in form %}
+                    {% for error in field.errors %}
+                        <li>{{ field.label }}: {{ error }}</li>
+                    {% endfor %}
+                {% endfor %}
+            </ul>
+        {% endif %}
+    </div>
+</body>
+</html> {% endcomment %}

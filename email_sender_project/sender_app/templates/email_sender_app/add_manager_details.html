@@ -1,0 +1,185 @@
+{% extends 'email_sender_app/base.html' %}
+
+{% block title %}Add Company Manager and Details{% endblock %}
+
+{% block content %}
+<style>
+    /* Centered form container with consistent styling */
+    .form-container {
+        background-color: #ffffff;
+        padding: 30px;
+        border-radius: 8px;
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+        max-width: 800px;
+        margin: 40px auto;
+    }
+
+    h1 {
+        color: #333;
+        margin-bottom: 20px;
+        text-align: center;
+    }
+
+    h2 {
+        margin-top: 20px;
+        color: #555;
+    }
+
+    .btn {
+        margin-top: 20px;
+    }
+
+    .alert {
+        margin-top: 20px;
+    }
+</style>
+
+<div class="form-container">
+    <!-- Alert Messages -->
+    {% for message in messages %}
+        <div class="alert alert-info" role="alert">
+            {{ message }}
+        </div>
+    {% endfor %}
+
+    <a href="{% url 'add_company_or_manager' %}" class="btn btn-secondary mb-3">Back</a>
+    <h1>Add Company Manager, Email Account, and Email Template</h1>
+
+    <form method="post">
+        {% csrf_token %}
+        <h2>Select Company</h2>
+        <div class="form-group">
+            {{ company_form.company }}
+        </div>
+
+        <h2>Manager Details</h2>
+        <div class="form-group">
+            {{ manager_form.as_p }}
+        </div>
+
+        <h2>Email Account Details</h2>
+        <div class="form-group">
+            {{ email_account_form.smtp_server }}
+        </div>
+        <div class="form-group">
+            {{ email_account_form.smtp_port }}
+        </div>
+
+        {% comment %} <div class="form-group form-check">
+            {{ email_account_form.use_tls }}
+            <label class="form-check-label" for="{{ email_account_form.use_tls.id_for_label }}">
+                Use TLS
+            </label>
+        </div>
+        <div class="form-group form-check">
+            {{ email_account_form.use_ssl }}
+            <label class="form-check-label" for="{{ email_account_form.use_ssl.id_for_label }}">
+                Use SSL
+            </label>
+        </div> {% endcomment %}
+
+        <h2>Email Template Details</h2>
+        <div class="form-group">
+            {{ email_template_form.as_p }}
+        </div>
+
+        <button type="submit" class="btn btn-primary">Add Details</button>
+    </form>
+</div>
+
+{% endblock %}
+
+
+
+{% comment %} <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Company Manager and Details</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #f8f9fa;
+        }
+        .container {
+            background-color: #ffffff;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+            margin-top: 40px;
+            max-width: 800px; /* Limit max width */
+            width: 95%; /* Set to 95% for small screens */
+        }
+        h1 {
+            color: #333;
+            margin-bottom: 20px;
+        }
+        h2 {
+            margin-top: 20px;
+            color: #555;
+        }
+        .btn {
+            margin-top: 20px;
+        }
+        .alert {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        
+        {% for message in messages %}
+            <div class="alert alert-info" role="alert">
+                {{ message }}
+            </div>
+        {% endfor %}
+        <a href="{% url 'add_company_or_manager' %}" class="btn btn-secondary mt-3">Back</a>
+        <h1>Add Company Manager, Email Account, and Email Template</h1>
+        <form method="post">
+            {% csrf_token %}
+            <h2>Select Company</h2>
+            <div class="form-group">
+                {{ company_form.company }}
+            </div>
+            
+            <h2>Manager Details</h2>
+            <div class="form-group">
+                {{ manager_form.as_p }}
+            </div>
+            
+            <h2>Email Account Details</h2>
+            <div class="form-group">
+                {{ email_account_form.smtp_server }}
+            </div>
+            <div class="form-group">
+                {{ email_account_form.smtp_port }}
+            </div>
+            <div class="form-group form-check">
+                {{ email_account_form.use_tls }}  <!-- Checkbox for use_tls -->
+                <label class="form-check-label" for="{{ email_account_form.use_tls.id_for_label }}">
+                    Use TLS
+                </label>
+            </div>
+            <div class="form-group form-check">
+                {{ email_account_form.use_ssl }}  <!-- Checkbox for use_ssl -->
+                <label class="form-check-label" for="{{ email_account_form.use_ssl.id_for_label }}">
+                    Use SSL
+                </label>
+            </div>
+            
+            <h2>Email Template Details</h2>
+            <div class="form-group">
+                {{ email_template_form.as_p }}
+            </div>
+
+            <button type="submit" class="btn btn-primary">Add Details</button>
+        </form>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html> {% endcomment %}

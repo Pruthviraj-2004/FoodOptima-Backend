@@ -1,0 +1,223 @@
+{% extends 'email_sender_app/base.html' %}
+
+{% block title %}Manager Dashboard{% endblock %}
+
+{% block content %}
+<style>
+    /* Container styling for page content */
+    .container {
+        background-color: #ffffff;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        margin-top: 40px;
+        margin-bottom: 40px;
+        max-width: 900px;
+        width: 95%;
+    }
+
+    /* Card styling for subtle shadows and rounded corners */
+    .card {
+        border-radius: 10px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    /* List group item hover effect */
+    .list-group-item {
+        border-radius: 8px;
+        transition: background-color 0.3s;
+    }
+    .list-group-item:hover {
+        background-color: #e9ecef;
+    }
+</style>
+
+    <!-- Displaying alert messages -->
+    {% if messages %}
+        {% for message in messages %}
+            <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+                {{ message }}
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+        {% endfor %}
+    {% endif %}
+
+    <div class="row">
+        <!-- Manager Details Card -->
+        <div class="col-md-6 mb-4">
+            <div class="card">
+                <div class="card-body">
+                    <h4 class="card-title">Manager Information</h4>
+                    <p class="card-text"><strong>Name:</strong> {{ manager.name }}</p>
+                    <p class="card-text"><strong>Email:</strong> {{ manager.email }}</p>
+                    <p class="card-text"><strong>Number of Employees Managed:</strong> {{ manager_employee_count }}</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Company Details Card -->
+        <div class="col-md-6 mb-4">
+            <div class="card">
+                <div class="card-body">
+                    <h4 class="card-title">Company Information</h4>
+                    <p class="card-text"><strong>Company Name:</strong> {{ company.name }}</p>
+                    <p class="card-text"><strong>Company Domain:</strong> {{ company.domain }}</p>
+                    <p class="card-text"><strong>Number of Employees in Company:</strong> {{ company_employee_count }}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Dashboard Sections -->
+    <div class="mt-4 mb-5">
+        <h3>Manage Employees</h3>
+        <div class="list-group">
+            <a href="{% url 'employee_list' %}" class="list-group-item list-group-item-action">Employees</a>
+            <a href="{% url 'employee_responses' %}" class="list-group-item list-group-item-action">Employee Responses</a>
+            <a href="{% url 'select_month_year' %}" class="list-group-item list-group-item-action">Manage Working Days</a>
+        </div>
+    </div>
+
+    <div class="mt-4 mb-5">
+        <h3>View Responses</h3>
+        <div class="list-group">
+            <a href="{% url 'view_responses_by_date' date=today_date %}" class="list-group-item list-group-item-action">View Responses by Date</a>
+            <a href="{% url 'view_responses_by_employee' %}" class="list-group-item list-group-item-action">View Responses by Employee</a>
+            <a href="{% url 'view_responses_by_month' %}" class="list-group-item list-group-item-action">View Responses by Month</a>
+        </div>
+    </div>
+
+    <div class="mt-4 mb-5">
+        <h3>Send Emails</h3>
+        <div class="list-group">
+            <a href="{% url 'send_emails_to_all' %}" class="list-group-item list-group-item-action">Send Emails to Employees</a>
+            <a href="{% url 'send_summary_email' %}" class="list-group-item list-group-item-action">Send Summary Email</a>
+            <a href="{% url 'send_custom_emails' %}" class="list-group-item list-group-item-action">Send Custom Email</a>
+        </div>
+    </div>
+{% endblock %}
+
+
+
+{% comment %} <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <title>Manager Dashboard</title>
+    <style>
+        body {
+            background-color: #f8f9fa;
+        }
+        .container {
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow for the container */
+            margin-top: 40px;
+            margin-bottom: 40px;
+            max-width: 900px; /* Limit max width for larger screens */
+            width: 95%; /* Set to 95% for small screens */
+        }
+        h1, h3 {
+            color: #333;
+            margin-bottom: 20px;
+        }
+        .card {
+            border-radius: 10px; /* Rounded corners for cards */
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Subtle shadow for cards */
+        }
+        .list-group-item {
+            border-radius: 8px; /* Rounded corners for list items */
+            transition: background-color 0.3s; /* Smooth background transition */
+        }
+        .list-group-item:hover {
+            background-color: #e9ecef; /* Highlight on hover */
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+
+        <!-- Displaying alert messages -->
+        {% if messages %}
+            {% for message in messages %}
+                <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+                    {{ message }}
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+            {% endfor %}
+        {% endif %}
+
+        <!-- Logout Button -->
+        <div class="text-right mb-4">
+            <a href="{% url 'manager_settings' %}" class="btn btn-info">Update Manager Details</a>
+            <a href="{% url 'logout' %}" class="btn btn-danger">Logout</a>
+        </div>
+
+        <div class="row">
+            <!-- Manager Details Card -->
+            <div class="col-md-6 mb-4">
+                <div class="card">
+                    <div class="card-body">
+                        <h4 class="card-title">Manager Information</h4>
+                        <p class="card-text"><strong>Name:</strong> {{ manager.name }}</p>
+                        <p class="card-text"><strong>Email:</strong> {{ manager.email }}</p>
+                        <p class="card-text"><strong>Number of Employees Managed:</strong> {{ manager_employee_count }}</p>
+                    </div>
+                </div>
+            </div>
+        
+            <!-- Company Details Card -->
+            <div class="col-md-6 mb-4">
+                <div class="card">
+                    <div class="card-body">
+                        <h4 class="card-title">Company Information</h4>
+                        <p class="card-text"><strong>Company Name:</strong> {{ company.name }}</p>
+                        <p class="card-text"><strong>Company Domain:</strong> {{ company.domain }}</p>
+                        <p class="card-text"><strong>Number of Employees in Company:</strong> {{ company_employee_count }}</p>
+                    </div>
+                </div>
+            </div>
+        </div>        
+
+        <!-- Dashboard Sections -->
+        <div class="mt-4 mb-5">
+            <h3>Manage Employees</h3>
+            <div class="list-group">
+                <a href="{% url 'employee_list' %}" class="list-group-item list-group-item-action">Employees</a>
+                <a href="{% url 'employee_responses' %}" class="list-group-item list-group-item-action">Employee Responses</a>
+                <a href="{% url 'select_month_year' %}" class="list-group-item list-group-item-action">Manage Working Days</a>
+            </div>
+        </div>
+
+        <div class="mt-4 mb-5">
+            <h3>View Responses</h3>
+            <div class="list-group">
+                <a href="{% url 'view_responses_by_date' date=today_date %}" class="list-group-item list-group-item-action">View Responses by Date</a>
+                <a href="{% url 'view_responses_by_employee' %}" class="list-group-item list-group-item-action">View Responses by Employee</a>
+                <a href="{% url 'view_responses_by_month' %}" class="list-group-item list-group-item-action">View Responses by Month</a>
+            </div>
+        </div>
+
+        <div class="mt-4 mb-5">
+            <h3>Send Emails</h3>
+            <div class="list-group">
+                <a href="{% url 'send_emails_to_all' %}" class="list-group-item list-group-item-action">Send Emails to Employees</a>
+                <a href="{% url 'send_summary_email' %}" class="list-group-item list-group-item-action">Send Summary Email</a>
+                <a href="{% url 'send_custom_emails' %}" class="list-group-item list-group-item-action">Send Custom Email</a>
+            </div>
+        </div>
+
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html> {% endcomment %}

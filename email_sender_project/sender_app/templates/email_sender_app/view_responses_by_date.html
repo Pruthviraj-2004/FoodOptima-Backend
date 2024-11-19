@@ -1,0 +1,377 @@
+{% extends 'email_sender_app/base.html' %}
+
+{% block title %}View Responses for {{ selected_date }}{% endblock %}
+
+{% block content %}
+<style>
+    body {
+        background-color: #f8f9fa;
+    }
+    .container {
+        background-color: #fff;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        margin-top: 40px;
+        margin-bottom: 40px;
+    }
+    th {
+        background-color: #007bff;
+        color: white;
+    }
+</style>
+
+{% comment %} <div class="container"> {% endcomment %}
+    <a href="{% url 'dashboard' %}" class="btn btn-secondary mt-3">Back to Dashboard</a>
+    
+    <!-- Displaying alert messages -->
+    {% if messages %}
+        {% for message in messages %}
+            <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+                {{ message }}
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+        {% endfor %}
+    {% endif %}
+
+    <h1>View Responses</h1>
+    <form method="get" action="" onsubmit="return redirectWithDate()">
+        <div class="form-group">
+            <label for="date">Select Date:</label>
+            <input type="date" id="date" name="date" class="form-control" value="{{ selected_date }}" required>
+        </div>
+        <button type="submit" class="btn btn-primary">View Responses</button>
+    </form>
+
+    <h1>Showing results for {{ selected_date }}</h1>
+
+    <div class="row mb-3">
+        <div class="col-md-4">
+            <div class="alert alert-success">Yes: {{ yes_count }}</div>
+        </div>
+        <div class="col-md-4">
+            <div class="alert alert-danger">No: {{ no_count }}</div>
+        </div>
+        <div class="col-md-4">
+            <div class="alert alert-warning">Not Responded: {{ not_responded_count }}</div>
+        </div>
+    </div>
+
+    {% if selected_date %}
+        <!-- Button to open the modal -->
+        <button type="button" class="btn btn-view-graph btn-primary" data-toggle="modal" data-target="#graphModal">
+            View Graph
+        </button>
+
+        <!-- Export responses button -->
+        <a href="{% url 'export_employee_responses' %}?date={{ selected_date }}" class="btn btn-success btn-export">
+            Export Responses
+        </a>
+    {% endif %}
+
+    <!-- Modal for displaying the graph -->
+    <div class="modal fade" id="graphModal" tabindex="-1" aria-labelledby="graphModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="graphModalLabel">Response Distribution</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <!-- Display the pie chart image -->
+                    <div class="chart-container">
+                        {% if chart_image %}
+                            <img src="data:image/png;base64,{{ chart_image }}" alt="Response Pie Chart" class="img-fluid">
+                        {% else %}
+                            <p>No data available to display the graph.</p>
+                        {% endif %}
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Response</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for item in page_obj %}
+            <tr>
+                {% if item.response %}
+                    <td>{{ item.employee.name }}</td>
+                    <td>{{ item.response | capfirst }}</td>
+                {% else %}
+                    <td>{{ item.name }}</td>
+                    <td>Not Responded</td>
+                {% endif %}
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <!-- Pagination -->
+    <nav aria-label="Page navigation example">
+        <ul class="pagination justify-content-center">
+            {% if page_obj.has_previous %}
+                <li class="page-item">
+                    <a class="page-link" href="?page=1&date={{ selected_date }}" aria-label="First">
+                        <span aria-hidden="true">&laquo;&laquo;</span>
+                    </a>
+                </li>
+                <li class="page-item">
+                    <a class="page-link" href="?page={{ page_obj.previous_page_number }}&date={{ selected_date }}" aria-label="Previous">
+                        <span aria-hidden="true">&laquo;</span>
+                    </a>
+                </li>
+            {% else %}
+                <li class="page-item disabled">
+                    <span class="page-link">&laquo;&laquo;</span>
+                </li>
+                <li class="page-item disabled">
+                    <span class="page-link">&laquo;</span>
+                </li>
+            {% endif %}
+            {% for num in page_obj.paginator.page_range %}
+                {% if page_obj.number == num %}
+                    <li class="page-item active"><span class="page-link">{{ num }}</span></li>
+                {% elif num > page_obj.number|add:'-5' and num < page_obj.number|add:'5' %}
+                    <li class="page-item"><a class="page-link" href="?page={{ num }}&date={{ selected_date }}">{{ num }}</a></li>
+                {% endif %}
+            {% endfor %}
+            {% if page_obj.has_next %}
+                <li class="page-item">
+                    <a class="page-link" href="?page={{ page_obj.next_page_number }}&date={{ selected_date }}" aria-label="Next">
+                        <span aria-hidden="true">&raquo;</span>
+                    </a>
+                </li>
+                <li class="page-item">
+                    <a class="page-link" href="?page={{ page_obj.paginator.num_pages }}&date={{ selected_date }}" aria-label="Last">
+                        <span aria-hidden="true">&raquo;&raquo;</span>
+                    </a>
+                </li>
+            {% else %}
+                <li class="page-item disabled">
+                    <span class="page-link">&raquo;</span>
+                </li>
+                <li class="page-item disabled">
+                    <span class="page-link">&raquo;&raquo;</span>
+                </li>
+            {% endif %}
+        </ul>
+    </nav>
+{% comment %} </div> {% endcomment %}
+
+<script>
+    function redirectWithDate() {
+        const selectedDate = document.getElementById("date").value;
+        const baseUrl = window.location.origin + '/api/view-responses-date/' + selectedDate + '/';
+        window.location.href = baseUrl;
+        return false;
+    }
+</script>
+{% endblock %}
+
+
+
+{% comment %} <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <title>View Responses for {{ selected_date }}</title>
+    <style>
+        body {
+            background-color: #f8f9fa;
+        }
+        .container {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            margin-top: 40px;
+            margin-bottom: 40px;
+        }
+        th {
+            background-color: #007bff;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <a href="{% url 'dashboard' %}" class="btn btn-secondary mt-3">Back to Dashboard</a>
+        
+        <!-- Displaying alert messages -->
+        {% if messages %}
+            {% for message in messages %}
+                <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+                    {{ message }}
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+            {% endfor %}
+        {% endif %}
+
+        <h1>View Responses</h1>
+        <form method="get" action="" onsubmit="return redirectWithDate()">
+            <div class="form-group">
+                <label for="date">Select Date:</label>
+                <input type="date" id="date" name="date" class="form-control" value="{{ selected_date }}" required>
+            </div>
+            <button type="submit" class="btn btn-primary">View Responses</button>
+        </form>
+
+        <h1>Showing results for {{ selected_date }}</h1>
+
+        <div class="row mb-3">
+            <div class="col-md-4">
+                <div class="alert alert-success">Yes: {{ yes_count }}</div>
+            </div>
+            <div class="col-md-4">
+                <div class="alert alert-danger">No: {{ no_count }}</div>
+            </div>
+            <div class="col-md-4">
+                <div class="alert alert-warning">Not Responded: {{ not_responded_count }}</div>
+            </div>
+        </div>
+
+        {% if selected_date %}
+            <!-- Button to open the modal -->
+            <button type="button" class="btn btn-view-graph btn-primary" data-toggle="modal" data-target="#graphModal">
+                View Graph
+            </button>
+
+            <!-- Export responses button -->
+            <a href="{% url 'export_employee_responses' %}?date={{ selected_date }}" class="btn btn-success btn-export">
+                Export Responses
+            </a>
+        {% endif %}
+
+        <!-- Modal for displaying the graph -->
+        <div class="modal fade" id="graphModal" tabindex="-1" aria-labelledby="graphModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="graphModalLabel">Response Distribution</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <!-- Display the pie chart image -->
+                        <div class="chart-container">
+                            {% if chart_image %}
+                                <img src="data:image/png;base64,{{ chart_image }}" alt="Response Pie Chart" class="img-fluid">
+                            {% else %}
+                                <p>No data available to display the graph.</p>
+                            {% endif %}
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Response</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for item in page_obj %}
+                <tr>
+                    {% if item.response %}
+                        <td>{{ item.employee.name }}</td>
+                        <td>{{ item.response | capfirst }}</td>
+                    {% else %}
+                        <td>{{ item.name }}</td>
+                        <td>Not Responded</td>
+                    {% endif %}
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+        <!-- Pagination -->
+        <nav aria-label="Page navigation example">
+            <ul class="pagination justify-content-center">
+                {% if page_obj.has_previous %}
+                    <li class="page-item">
+                        <a class="page-link" href="?page=1&date={{ selected_date }}" aria-label="First">
+                            <span aria-hidden="true">&laquo;&laquo;</span>
+                        </a>
+                    </li>
+                    <li class="page-item">
+                        <a class="page-link" href="?page={{ page_obj.previous_page_number }}&date={{ selected_date }}" aria-label="Previous">
+                            <span aria-hidden="true">&laquo;</span>
+                        </a>
+                    </li>
+                {% else %}
+                    <li class="page-item disabled">
+                        <span class="page-link">&laquo;&laquo;</span>
+                    </li>
+                    <li class="page-item disabled">
+                        <span class="page-link">&laquo;</span>
+                    </li>
+                {% endif %}
+                {% for num in page_obj.paginator.page_range %}
+                    {% if page_obj.number == num %}
+                        <li class="page-item active"><span class="page-link">{{ num }}</span></li>
+                    {% elif num > page_obj.number|add:'-5' and num < page_obj.number|add:'5' %}
+                        <li class="page-item"><a class="page-link" href="?page={{ num }}&date={{ selected_date }}">{{ num }}</a></li>
+                    {% endif %}
+                {% endfor %}
+                {% if page_obj.has_next %}
+                    <li class="page-item">
+                        <a class="page-link" href="?page={{ page_obj.next_page_number }}&date={{ selected_date }}" aria-label="Next">
+                            <span aria-hidden="true">&raquo;</span>
+                        </a>
+                    </li>
+                    <li class="page-item">
+                        <a class="page-link" href="?page={{ page_obj.paginator.num_pages }}&date={{ selected_date }}" aria-label="Last">
+                            <span aria-hidden="true">&raquo;&raquo;</span>
+                        </a>
+                    </li>
+                {% else %}
+                    <li class="page-item disabled">
+                        <span class="page-link">&raquo;</span>
+                    </li>
+                    <li class="page-item disabled">
+                        <span class="page-link">&raquo;&raquo;</span>
+                    </li>
+                {% endif %}
+            </ul>
+        </nav>
+    </div>
+
+    <script>
+        function redirectWithDate() {
+            const selectedDate = document.getElementById("date").value;
+            const baseUrl = window.location.origin + '/api/view-responses-date/' + selectedDate + '/';
+            window.location.href = baseUrl;
+            return false;
+        }
+    </script>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html> {% endcomment %}

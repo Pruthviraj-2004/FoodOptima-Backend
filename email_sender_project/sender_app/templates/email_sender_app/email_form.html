@@ -1,0 +1,149 @@
+{% extends 'email_sender_app/base.html' %}
+
+{% block title %}Send Email to All Employees{% endblock %}
+
+{% block content %}
+<style>
+    /* Styling for the form container */
+    .form-container {
+        max-width: 500px;
+        margin: 50px auto;
+        padding: 20px;
+        background-color: #fff;
+        border-radius: 8px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+    .form-container h2 {
+        margin-bottom: 20px;
+    }
+    .btn-block {
+        display: inline-flex;
+        justify-content: center;
+        align-items: center;
+    }
+    .btn-block .spinner-border {
+        display: none;
+    }
+</style>
+
+<div class="form-container">
+    <a href="{% url 'dashboard' %}" class="btn btn-secondary mb-3">Back to Dashboard</a>
+    <h2 class="text-center">Send Email to All Employees</h2>
+    
+    <!-- Form for sending emails -->
+    <form method="post" id="sendEmailForm">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="btn btn-primary btn-block">
+            <span>Send Emails</span>
+            <div class="spinner-border spinner-border-sm ml-2" role="status"></div>
+        </button>
+    </form>
+
+    <!-- Success and error messages -->
+    {% if messages %}
+        {% for message in messages %}
+            <div class="alert alert-success mt-3" role="alert">
+                {{ message }}
+            </div>
+        {% endfor %}
+    {% endif %}
+
+    {% if form.errors %}
+        <div class="alert alert-danger mt-3" role="alert">
+            There was an error with your submission. Please check the form and try again.
+        </div>
+    {% endif %}
+</div>
+
+<!-- Optional JS to show loading spinner when form is submitted -->
+<script>
+    document.getElementById('sendEmailForm').addEventListener('submit', function() {
+        const submitButton = this.querySelector('button');
+        const spinner = submitButton.querySelector('.spinner-border');
+        submitButton.disabled = true;
+        spinner.style.display = 'inline-block';
+    });
+</script>
+{% endblock %}
+
+
+
+{% comment %} 
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Send Email to All Employees</title>
+    <!-- Bootstrap CSS CDN link -->
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .form-container {
+            max-width: 500px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        .form-container h2 {
+            margin-bottom: 20px;
+        }
+        .btn-block {
+            display: inline-flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .btn-block .spinner-border {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">        
+        <div class="form-container">
+            <a href="{% url 'dashboard' %}" class="btn btn-secondary mb-3">Back to Dashboard</a>
+            <h2 class="text-center">Send Email to All Employees</h2>
+            
+            <!-- Form for sending emails -->
+            <form method="post" id="sendEmailForm">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <button type="submit" class="btn btn-primary btn-block">
+                    <span>Send Emails</span>
+                    <div class="spinner-border spinner-border-sm ml-2" role="status"></div>
+                </button>
+            </form>
+
+            <!-- Success and error messages -->
+            {% if messages %}
+                {% for message in messages %}
+                    <div class="alert alert-success mt-3" role="alert">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            {% endif %}
+
+            {% if form.errors %}
+                <div class="alert alert-danger mt-3" role="alert">
+                    There was an error with your submission. Please check the form and try again.
+                </div>
+            {% endif %}
+        </div>
+    </div>
+
+    <!-- Bootstrap JS and Popper.js for better UI components -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+    <!-- Optional JS to show loading spinner when form is submitted -->
+    <script>
+        document.getElementById('sendEmailForm').addEventListener('submit', function() {
+            const submitButton = this.querySelector('button');
+            const spinner = submitButton.querySelector('.spinner-border');
+            submitButton.disabled = true;
+            spinner.style.display = 'inline-block';
+        });
+    </script>
+</body>
+</html> {% endcomment %}

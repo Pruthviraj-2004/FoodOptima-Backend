@@ -1,0 +1,114 @@
+{% extends 'email_sender_app/base.html' %}
+
+{% block title %}Manager Settings{% endblock %}
+
+{% block content %}
+<style>
+    /* Container styling */
+    .settings-container {
+        background-color: #fff;
+        padding: 30px;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        margin-top: 50px;
+    }
+
+    h1 {
+        color: #333;
+        margin-bottom: 20px;
+    }
+
+    /* Navigation links styling */
+    .nav-links {
+        list-style-type: none;
+        padding: 0;
+    }
+
+    .nav-links li {
+        margin-bottom: 10px;
+    }
+
+    .nav-links a {
+        display: inline-block;
+        padding: 10px 20px;
+        color: white;
+        background-color: #007bff;
+        border-radius: 5px;
+        text-decoration: none;
+    }
+
+    .nav-links a:hover {
+        background-color: #0056b3;
+    }
+</style>
+
+<div class="settings-container">
+    <a href="{% url 'dashboard' %}" class="btn btn-secondary mt-3">Back to Dashboard</a>
+    
+    <h1>Manager Settings</h1>
+    
+    <ul class="nav-links">
+        <li><a href="{% url 'update_manager_name' %}">Update Manager Name</a></li>
+        <li><a href="{% url 'update_manager_email_account' %}">Update Email Account</a></li>
+        <li><a href="{% url 'update_manager_email_template' %}">Update Email Template</a></li>
+    </ul>
+</div>
+
+{% endblock %}
+
+
+
+{% comment %} <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manager Settings</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #f8f9fa;
+        }
+        .container {
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            margin-top: 50px;
+        }
+        h1 {
+            color: #333;
+            margin-bottom: 20px;
+        }
+        .nav-links {
+            list-style-type: none;
+            padding: 0;
+        }
+        .nav-links li {
+            margin-bottom: 10px;
+        }
+        .nav-links a {
+            display: inline-block;
+            padding: 10px 20px;
+            color: white;
+            background-color: #007bff;
+            border-radius: 5px;
+            text-decoration: none;
+        }
+        .nav-links a:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <a href="{% url 'dashboard' %}" class="btn btn-secondary mt-3">Back to Dashboard</a>
+        <h1>Manager Settings</h1>
+        <ul class="nav-links">
+            <li><a href="{% url 'update_manager_name' %}">Update Manager Name</a></li>
+            <li><a href="{% url 'update_manager_email_account' %}">Update Email Account</a></li>
+            <li><a href="{% url 'update_manager_email_template' %}">Update Email Template</a></li>
+        </ul>
+    </div>
+</body>
+</html> {% endcomment %}

@@ -1,0 +1,120 @@
+{% comment %} <!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Daily Attendance Summary</title>
+    <style>
+        .email-container {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+            background-color: #f9f9f9;
+        }
+        .header {
+            font-size: 24px;
+            font-weight: bold;
+            color: #333;
+        }
+        .body {
+            font-size: 16px;
+            margin-top: 10px;
+            color: #555;
+        }
+        .footer {
+            margin-top: 20px;
+            font-size: 14px;
+            color: #777;
+        }
+    </style>
+</head>
+<body>
+    <div class="email-container">
+        <div class="header">{{ title }}</div>
+        <div class="body">
+            <p>{{ body }}</p>
+            <p>Total Responses: {{ total_responses }}</p>
+            <p>Yes: {{ yes_count }}</p>
+            <p>No: {{ no_count }}</p>
+        </div>
+        <div class="footer">{{ sign }}</div>
+    </div>
+</body>
+</html> {% endcomment %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Daily Attendance Summary</title>
+    <style>
+        .email-container {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+            background-color: #f9f9f9;
+            border: 1px solid #e1e1e1;
+            border-radius: 8px;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        .header {
+            font-size: 24px;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 10px;
+        }
+        .body {
+            font-size: 16px;
+            color: #555;
+            line-height: 1.5;
+        }
+        .summary-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+        .summary-table th, .summary-table td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+        .summary-table th {
+            background-color: #f2f2f2;
+            color: #333;
+        }
+        .footer {
+            margin-top: 20px;
+            font-size: 14px;
+            color: #777;
+        }
+    </style>
+</head>
+<body>
+    <div class="email-container">
+        <div class="header">{{ title }}</div>
+        <div class="body">
+            <p>{{ body }}</p>
+            
+            <table class="summary-table">
+                <tr>
+                    <th>Total Responses</th>
+                    <td>{{ total_responses }}</td>
+                </tr>
+                <tr>
+                    <th>Yes</th>
+                    <td>{{ yes_count }}</td>
+                </tr>
+                <tr>
+                    <th>No</th>
+                    <td>{{ no_count }}</td>
+                </tr>
+                <tr>
+                    <th>Not Responded</th>
+                    <td>{{ not_responded_count }}</td>
+                </tr>
+            </table>
+        </div>
+        <div class="footer">
+            <p>{{ sign }}</p>
+        </div>
+    </div>
+</body>
+</html>

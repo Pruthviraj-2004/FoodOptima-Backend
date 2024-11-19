@@ -1,0 +1,72 @@
+{% extends 'email_sender_app/base.html' %}
+
+{% block title %}Update Manager Details{% endblock %}
+
+{% block content %}
+<style>
+    /* Container styling for form alignment */
+    .form-container {
+        margin-top: 50px;
+        padding: 20px;
+        background-color: #ffffff;
+        border-radius: 8px;
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+        max-width: 600px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .btn-container {
+        display: flex;
+        gap: 10px;
+        margin-bottom: 20px;
+    }
+
+    h1 {
+        color: #333;
+        margin-bottom: 20px;
+        text-align: center;
+    }
+</style>
+
+<div class="form-container">
+    <div class="btn-container">
+        <a href="{% url 'manager_settings' %}" class="btn btn-primary">Back to Manager Dashboard</a>
+        <a href="{% url 'dashboard' %}" class="btn btn-secondary">Back to Dashboard</a>
+    </div>
+
+    <h1>Update Manager Details</h1>
+
+    <form method="POST" action="{% url 'update_manager_name' %}">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="btn btn-primary btn-block">Update Details</button>
+    </form>
+</div>
+
+{% endblock %}
+
+
+
+{% comment %} <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Update Manager Details</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container mt-5">
+        <a href="{% url 'manager_settings' %}" class="btn btn-primary mt-3">Back to Manager Dashboard</a>
+        <a href="{% url 'dashboard' %}" class="btn btn-secondary mt-3">Back to Dashboard</a>
+        <h1>Update Manager Details</h1>
+        <form method="POST" action="{% url 'update_manager_name' %}">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit" class="btn btn-primary">Update Details</button>
+        </form>
+
+    </div>
+</body>
+</html> {% endcomment %}
