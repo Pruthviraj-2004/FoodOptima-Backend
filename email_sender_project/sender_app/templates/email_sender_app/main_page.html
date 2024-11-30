@@ -1,682 +1,3 @@
-{% comment %} With Hover {% endcomment %}
-
-{% comment %} <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FoodOptima - Project Overview</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <style>
-        body {
-            background-color: #ffffff;
-            font-family: Arial, sans-serif;
-        }
-        .navbar {
-            background-color: #ffffff;
-        }
-        .navbar-brand, .nav-link {
-            color: #666666 !important;
-        }
-        .navbar-brand:hover, .nav-link:hover {
-            color: #333333 !important;
-        }
-        .navbar-toggler {
-            margin-left: auto;
-            margin-right: auto;
-        }
-        .container {
-            margin-top: 40px;
-            margin-bottom: 40px;
-        }
-        h1 {
-            font-size: 2.5rem;
-            color: #2b2b2b;
-            margin-bottom: 30px;
-            font-weight: 700;
-        }
-        .card {
-            border: none;
-            border-radius: 8px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            background-color: #f5f6f7;
-            transition: transform 0.3s ease;
-        }
-        .card:hover {
-            transform: scale(1.02);
-        }
-        .card-body {
-            padding: 20px;
-        }
-        .card-title {
-            font-size: 1.5rem;
-            font-weight: 600;
-            color: #333333;
-            border-bottom: 2px solid #007bff;
-            padding-bottom: 8px;
-        }
-        .card-text {
-            font-size: 1rem;
-            color: #555555;
-        }
-        ul.card-text li {
-            padding: 5px 0;
-        }
-        footer {
-            margin-top: 50px;
-            font-size: 0.9rem;
-            color: #666666;
-        }
-        footer a {
-            color: #007bff;
-            text-decoration: none;
-        }
-        footer a:hover {
-            text-decoration: underline;
-        }
-    </style>
-</head>
-<body>
-
-    <nav class="navbar navbar-expand-lg navbar-light">
-        <a class="navbar-brand font-weight-bold" href="#">
-            <h1 style="font-size: 1.8rem; margin: 0;">FoodOptima</h1>
-        </a>
-        <button class="navbar-toggler mx-auto" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav ml-auto">
-                <li class="nav-item">
-                    <a href="{% url 'login' %}" class="btn btn-primary nav-link text-white ml-3 font-weight-bold">
-                        <h4 style="font-size: 1.2rem; margin: 0;">Explore</h4>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link font-weight-bold" href="#">
-                        <h4 style="font-size: 1.2rem; margin: 0;">About Us</h4>
-                    </a>
-                </li>
-            </ul>
-        </div>
-    </nav>
-
-    <div class="container">
-        <div class="card text-center mb-4 p-4" style="border: none; background-color: #ffffff;">
-            <h1 class="card-title font-weight-bold" style="font-size: 2.5rem; color: #000000;">FoodOptima</h1>
-            <p class="card-text" style="font-size: 1.3rem; color: #000000;">
-                Save Food. Save Lives. Save Money.
-            </p>
-            <p class="card-text" style="font-size: 1rem; color: #000000;">
-                FoodOptima is more than a meal planner. It's a sustainable approach to reducing food waste, enhancing meal efficiency, and cutting unnecessary costs for organizations.
-            </p>
-        
-            <div class="card" style="border: none; background-color: #ffffff;">
-                <div class="card-body">
-                    <div class="row">
-                        <div class="col-md-6 text-left d-flex align-items-center justify-content-center">
-                            <h5 class="card-title font-weight-bold" style="color: #000000;">Project Overview</h5>
-                        </div>
-                        <div class="col-md-6 text-left">
-                            <p class="card-text" style="color: #000000;">
-                                FoodOptima is a web application designed to streamline meal planning in organizations. By gathering employee responses regarding their meal requirements for the next working day, FoodOptima ensures that meal orders align with actual demand, reducing waste and saving costs.
-                            </p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        
-            <div class="card" style="border: none; background-color: #ffffff;">
-                <div class="card-body">
-                    <div class="row">
-                        <div class="col-md-6 text-left">
-                            <p class="card-text" style="color: #000000;">
-                                Many organizations struggle with over-ordering or under-ordering meals for employees, leading to food waste and increased expenses. Without a reliable system for gathering daily meal requirements, businesses often find themselves wasting resources or failing to meet demand. FoodOptima was developed to solve this problem by efficiently collecting employee responses about meal preferences for the following workday.
-                            </p>
-                        </div>
-                        <div class="col-md-6 text-left d-flex align-items-center justify-content-center">
-                            <h5 class="card-title font-weight-bold" style="color: #000000;">Problem Statement</h5>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        
-            <div class="card" style="border: none; background-color: #ffffff;">
-                <div class="card-body">
-                    <div class="row">
-                        <div class="col-md-6 text-left d-flex align-items-center justify-content-center">
-                            <h5 class="card-title font-weight-bold" style="color: #000000;">Solution</h5>
-                        </div>
-                        <div class="col-md-6 text-left">
-                            <p class="card-text" style="color: #000000;">
-                                FoodOptima automates the process of collecting meal preferences from employees for the upcoming workday. The system sends employees an email with simple options to confirm whether they will require a meal the next day. Responses are automatically saved, giving management an accurate count of how many meals to prepare or order, ensuring optimal meal planning.
-                            </p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        
-            <div class="card" style="border: none; background-color: #ffffff;">
-                <div class="card-body text-center">
-                    <h5 class="card-title font-weight-bold" style="color: #000000;">Key Features</h5>
-                    <ul class="card-text" style="color: #000000; list-style-position: inside; display: inline-block; text-align: left;">
-                        <li>Automated Email Requests: Employees receive daily notifications to submit their meal preferences for the next workday.</li>
-                        <li>Simple Response Options: Employees can easily confirm their meal requirement with a single click.</li>
-                        <li>Real-Time Data Collection: Responses are collected and saved immediately, providing real-time data on meal requirements.</li>
-                        <li>Detailed Reports: Comprehensive data reports for meal planning and analysis, helping organizations make informed decisions.</li>
-                    </ul>
-                </div>
-            </div>
-
-        
-            <div class="card" style="border: none; background-color: #ffffff;">
-                <div class="card-body">
-                    <div class="row">
-                        <div class="col-md-6 text-left d-flex align-items-center justify-content-center">
-                            <h5 class="card-title font-weight-bold" style="color: #000000;">Technical Aspects</h5>
-                        </div>
-                        <div class="col-md-6 text-left">
-                            <p class="card-text" style="color: #000000;">
-                                FoodOptima is built using HTML for the frontend and Django for the backend. The system efficiently handles data storage and retrieval, allowing meal preferences to be collected in real-time. A robust, user-friendly interface ensures that employees can quickly submit their responses, while the backend processes and stores the data for management to access and analyze.
-                            </p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        
-            <div class="card" style="border: none; background-color: #ffffff;">
-                <div class="card-body">
-                    <div class="row">
-                        <div class="col-md-6 text-left">
-                            <p class="card-text" style="color: #000000;">
-                                FoodOptima has successfully reduced food waste and operational costs by enabling organizations to plan meals based on actual employee preferences. By ensuring that meal orders are aligned with demand, FoodOptima has enhanced efficiency and contributed to more sustainable business practices.
-                            </p>
-                        </div>
-                        <div class="col-md-6 text-left d-flex align-items-center justify-content-center">
-                            <h5 class="card-title font-weight-bold" style="color: #000000;">Outcome</h5>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        
-    <footer class="text-center mt-5">
-        <p>
-            For further support, reach out to us at 
-            <a href="mailto:elara.soultionss@gmail.com">elara.soultionss@gmail.com</a>
-        </p>
-    </footer>    
-
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-</body>
-</html> {% endcomment %}
-
-{% comment %} Without hover {% endcomment %}
-
-{% comment %} <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FoodOptima - Project Overview</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <style>
-        body {
-            background-color: #ffffff;
-            font-family: Arial, sans-serif;
-        }
-        .navbar {
-            background-color: #ffffff;
-        }
-        .navbar-brand, .nav-link {
-            color: #666666 !important;
-        }
-        .navbar-brand:hover, .nav-link:hover {
-            color: #333333 !important;
-        }
-        .navbar-toggler {
-            margin-left: auto;
-            margin-right: auto;
-        }
-        
-        /* Full-width Container */
-        .container-fluid {
-            padding: 0;
-        }
-        
-        /* Card Style - No Border, Shadow, Full Width, Fixed 500px Height */
-        .card {
-            border: none;
-            background-color: #ffffff;
-            margin-bottom: 20px;
-        }
-
-        .card-body {
-            height: 200px;
-            padding: 20px;
-        }
-        
-        /* Title Styling */
-        .card-title {
-            font-size: 1.5rem;
-            font-weight: 600;
-            color: #333333;
-            border-bottom: 2px solid #007bff;
-            padding-bottom: 8px;
-            text-align: center;
-        }
-
-        .card-text {
-            font-size: 1rem;
-            color: #555555;
-        }
-        
-        footer {
-            margin-top: 50px;
-            font-size: 0.9rem;
-            color: #666666;
-            padding: 20px 0;
-        }
-        footer a {
-            color: #007bff;
-            text-decoration: none;
-        }
-        footer a:hover {
-            text-decoration: underline;
-        }
-    </style>
-</head>
-<body>
-
-    <!-- Navbar -->
-    <nav class="navbar navbar-expand-lg navbar-light">
-        <a class="navbar-brand font-weight-bold" href="#">
-            <h1 style="font-size: 1.8rem; margin: 0;">FoodOptima</h1>
-        </a>
-        <button class="navbar-toggler mx-auto" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav ml-auto">
-                <li class="nav-item">
-                    <a href="{% url 'login' %}" class="btn btn-primary nav-link text-white ml-3 font-weight-bold">
-                        <h4 style="font-size: 1.2rem; margin: 0;">Explore</h4>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link font-weight-bold" href="#">
-                        <h4 style="font-size: 1.2rem; margin: 0;">About Us</h4>
-                    </a>
-                </li>
-            </ul>
-        </div>
-    </nav>
-
-    <div class="container-fluid">
-        <!-- Intro Card -->
-        <div class="card text-center mb-4 p-4">
-            <h1 class="card-title font-weight-bold" style="font-size: 2.5rem; color: #000000;">FoodOptima</h1>
-            <p class="card-text" style="font-size: 1.3rem; color: #000000;">
-                Save Food. Save Lives. Save Money.
-            </p>
-            <p class="card-text" style="font-size: 1rem; color: #000000;">
-                FoodOptima is more than a meal planner. It's a sustainable approach to reducing food waste, enhancing meal efficiency, and cutting unnecessary costs for organizations.
-            </p>
-        
-            <!-- Project Overview -->
-            <div class="card">
-                <div class="card-body">
-                    <div class="row">
-                        <div class="col-md-4 d-flex align-items-center justify-content-center">
-                            <h5 class="card-title font-weight-bold" style="color: #000000;">Project Overview</h5>
-                        </div>
-                        <div class="col-md-8">
-                            <p class="card-text" style="color: #000000;">
-                                FoodOptima is a web application designed to streamline meal planning in organizations. By gathering employee responses regarding their meal requirements for the next working day, FoodOptima ensures that meal orders align with actual demand, reducing waste and saving costs.
-                            </p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        
-            <!-- Problem Statement -->
-            <div class="card">
-                <div class="card-body">
-                    <div class="row">
-                        <div class="col-md-4 d-flex align-items-center justify-content-center">
-                            <h5 class="card-title font-weight-bold" style="color: #000000;">Problem Statement</h5>
-                        </div>
-                        <div class="col-md-8">
-                            <p class="card-text" style="color: #000000;">
-                                Many organizations struggle with over-ordering or under-ordering meals for employees, leading to food waste and increased expenses. Without a reliable system for gathering daily meal requirements, businesses often find themselves wasting resources or failing to meet demand. FoodOptima was developed to solve this problem by efficiently collecting employee responses about meal preferences for the following workday.
-                            </p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        
-            <!-- Solution -->
-            <div class="card">
-                <div class="card-body">
-                    <div class="row">
-                        <div class="col-md-4 d-flex align-items-center justify-content-center">
-                            <h5 class="card-title font-weight-bold" style="color: #000000;">Solution</h5>
-                        </div>
-                        <div class="col-md-8">
-                            <p class="card-text" style="color: #000000;">
-                                FoodOptima automates the process of collecting meal preferences from employees for the upcoming workday. The system sends employees an email with simple options to confirm whether they will require a meal the next day. Responses are automatically saved, giving management an accurate count of how many meals to prepare or order, ensuring optimal meal planning.
-                            </p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        
-            <!-- Key Features -->
-            <div class="card">
-                <div class="card-body">
-                    <div class="row">
-                        <div class="col-md-4 d-flex align-items-center justify-content-center">
-                            <h5 class="card-title font-weight-bold" style="color: #000000;">Key Features</h5>
-                        </div>
-                        <div class="col-md-8">
-                            <ul class="card-text" style="color: #000000; list-style-position: inside;">
-                                <li>Automated Email Requests: Employees receive daily notifications to submit their meal preferences for the next workday.</li>
-                                <li>Simple Response Options: Employees can easily confirm their meal requirement with a single click.</li>
-                                <li>Real-Time Data Collection: Responses are collected and saved immediately, providing real-time data on meal requirements.</li>
-                                <li>Detailed Reports: Comprehensive data reports for meal planning and analysis, helping organizations make informed decisions.</li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Technical Aspects -->
-            <div class="card">
-                <div class="card-body">
-                    <div class="row">
-                        <div class="col-md-4 d-flex align-items-center justify-content-center">
-                            <h5 class="card-title font-weight-bold" style="color: #000000;">Technical Aspects</h5>
-                        </div>
-                        <div class="col-md-8">
-                            <p class="card-text" style="color: #000000;">
-                                FoodOptima is built using HTML for the frontend and Django for the backend. The system efficiently handles data storage and retrieval, allowing meal preferences to be collected in real-time. A robust, user-friendly interface ensures that employees can quickly submit their responses, while the backend processes and stores the data for management to access and analyze.
-                            </p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        
-            <!-- Outcome -->
-            <div class="card">
-                <div class="card-body">
-                    <div class="row">
-                        <div class="col-md-4 d-flex align-items-center justify-content-center">
-                            <h5 class="card-title font-weight-bold" style="color: #000000;">Outcome</h5>
-                        </div>
-                        <div class="col-md-8">
-                            <p class="card-text" style="color: #000000;">
-                                FoodOptima has successfully reduced food waste and operational costs by enabling organizations to plan meals based on actual employee preferences. By ensuring that meal orders are aligned with demand, FoodOptima has enhanced efficiency and contributed to more sustainable business practices.
-                            </p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <footer class="text-center mt-5">
-                <p>
-                    For further support, reach out to us at 
-                    <a href="mailto:elara.soultionss@gmail.com">elara.soultionss@gmail.com</a>
-                </p>
-            </footer>   
-        </div>
-        
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-</body>
-</html> {% endcomment %}
-
-
-{% comment %} 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FoodOptima - Project Overview</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <style>
-        body {
-            background-color: #ffffff;
-            font-family: Arial, sans-serif;
-        }
-        .navbar {
-            background-color: #ffffff;
-        }
-        .navbar-brand, .nav-link {
-            color: #666666 !important;
-        }
-        .navbar-brand:hover, .nav-link:hover {
-            color: #333333 !important;
-        }
-        .navbar-toggler {
-            margin-left: auto;
-            margin-right: auto;
-        }
-
-        /* Full-width Container */
-        .container-fluid {
-            padding: 0;
-        }
-        
-        /* Card Style */
-        .card {
-            border: none;
-            background-color: #ffffff;
-            margin-bottom: 20px;
-        }
-
-        /* Card Body Styling */
-        .card-body {
-            height: 200px;
-            padding: 20px;
-        }
-
-        /* Left and Right Column Styling */
-        .left-column, .right-column {
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            text-align: center;
-        }
-        
-        /* Title Styling */
-        .card-title {
-            font-size: 1.5rem;
-            font-weight: 900;
-            color: #333333;
-            border-bottom: 2px solid #007bff;
-            padding-bottom: 8px;
-        }
-
-        .card-text {
-            font-size: 1rem;
-            color: #555555;
-        }
-        
-        footer {
-            margin-top: 50px;
-            font-size: 0.9rem;
-            color: #666666;
-            padding: 20px 0;
-        }
-        footer a {
-            color: #007bff;
-            text-decoration: none;
-        }
-        footer a:hover {
-            text-decoration: underline;
-        }
-    </style>
-</head>
-<body>
-
-    <!-- Navbar -->
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <a class="navbar-brand font-weight-bold" href="{% url 'main_page' %}">
-            <h1 style="font-size: 1.8rem; margin: 0; color: #007bff;">FoodOptima</h1>
-        </a>
-        <button class="navbar-toggler mx-auto" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav ml-auto">
-                <!-- Explore Button -->
-                <li class="nav-item">
-                    <a href="{% url 'login' %}" class="btn btn-primary nav-link text-white ml-3 font-weight-bold" style="padding: 10px 20px; border-radius: 5px;">
-                        Explore
-                    </a>
-                </li>
-                <!-- About Us Link -->
-                <li class="nav-item">
-                    <a class="nav-link font-weight-bold ml-3" href="{% url 'about_us' %}" style="font-size: 1.2rem; color: #007bff;">
-                        About Us
-                    </a>
-                </li>
-            </ul>
-        </div>
-    </nav>
-    
-
-    <div class="container-fluid">
-        <!-- Intro Card (centered content) -->
-        <div class="card text-center mb-4 p-4">
-            <div class="card-body">
-                <h1 class="card-title font-weight-bold" style="font-size: 2.5rem; color: #000000;">FoodOptima</h1>
-                <p class="card-text" style="font-size: 1.3rem; color: #000000;">
-                    Save Food. Save Lives. Save Money.
-                </p>
-                <p class="card-text" style="font-size: 1rem; color: #000000;">
-                    FoodOptima is more than a meal planner. It's a sustainable approach to reducing food waste, enhancing meal efficiency, and cutting unnecessary costs for organizations.
-                </p>
-            </div>
-        </div>
-        
-        <!-- Project Overview -->
-        <div class="card">
-            <div class="card-body">
-                <div class="row">
-                    <div class="col-md-4 left-column">
-                        <h5 class="card-title font-weight-bold" style="color: #000000;">Project Overview</h5>
-                    </div>
-                    <div class="col-md-8 right-column">
-                        <p class="card-text" style="color: #000000;">
-                            FoodOptima is a web application designed to streamline meal planning in organizations. By gathering employee responses regarding their meal requirements for the next working day, FoodOptima ensures that meal orders align with actual demand, reducing waste and saving costs.
-                        </p>
-                    </div>
-                </div>
-            </div>
-        </div>
-        
-        <!-- Problem Statement -->
-        <div class="card">
-            <div class="card-body">
-                <div class="row">
-                    <div class="col-md-4 left-column">
-                        <h5 class="card-title font-weight-bold" style="color: #000000;">Problem Statement</h5>
-                    </div>
-                    <div class="col-md-8 right-column">
-                        <p class="card-text" style="color: #000000;">
-                            Many organizations struggle with over-ordering or under-ordering meals for employees, leading to food waste and increased expenses. Without a reliable system for gathering daily meal requirements, businesses often find themselves wasting resources or failing to meet demand. FoodOptima was developed to solve this problem by efficiently collecting employee responses about meal preferences for the following workday.
-                        </p>
-                    </div>
-                </div>
-            </div>
-        </div>
-        
-        <!-- Solution -->
-        <div class="card">
-            <div class="card-body">
-                <div class="row">
-                    <div class="col-md-4 left-column">
-                        <h5 class="card-title font-weight-bold" style="color: #000000;">Solution</h5>
-                    </div>
-                    <div class="col-md-8 right-column">
-                        <p class="card-text" style="color: #000000;">
-                            FoodOptima automates the process of collecting meal preferences from employees for the upcoming workday. The system sends employees an email with simple options to confirm whether they will require a meal the next day. Responses are automatically saved, giving management an accurate count of how many meals to prepare or order, ensuring optimal meal planning.
-                        </p>
-                    </div>
-                </div>
-            </div>
-        </div>
-        
-        <!-- Key Features -->
-        <div class="card">
-            <div class="card-body">
-                <div class="row">
-                    <div class="col-md-4 left-column">
-                        <h5 class="card-title font-weight-bold" style="color: #000000;">Key Features</h5>
-                    </div>
-                    <div class="col-md-8 right-column">
-                        <ul class="card-text" style="color: #000000; list-style-position: inside;">
-                            <li>Automated Email Requests: Employees receive daily notifications to submit their meal preferences for the next workday.</li>
-                            <li>Simple Response Options: Employees can easily confirm their meal requirement with a single click.</li>
-                            <li>Real-Time Data Collection: Responses are collected and saved immediately, providing real-time data on meal requirements.</li>
-                            <li>Detailed Reports: Comprehensive data reports for meal planning and analysis, helping organizations make informed decisions.</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Technical Aspects -->
-        <div class="card">
-            <div class="card-body">
-                <div class="row">
-                    <div class="col-md-4 left-column">
-                        <h1 class="card-title font-weight-bold" style="color: #000000;">Technical Aspects</h1>
-                    </div>
-                    <div class="col-md-8 right-column">
-                        <p class="card-text" style="color: #000000;">
-                            FoodOptima is built using HTML for the frontend and Django for the backend. The system efficiently handles data storage and retrieval, allowing meal preferences to be collected in real-time. A robust, user-friendly interface ensures that employees can quickly submit their responses, while the backend processes and stores the data for management to access and analyze.
-                        </p>
-                    </div>
-                </div>
-            </div>
-        </div>
-        
-        <!-- Outcome -->
-        <div class="card">
-            <div class="card-body">
-                <div class="row">
-                    <div class="col-md-4 left-column">
-                        <h5 class="card-title font-weight-bold" style="color: #000000;">Outcome</h5>
-                    </div>
-                    <div class="col-md-8 right-column">
-                        <p class="card-text" style="color: #000000;">
-                            FoodOptima has successfully reduced food waste and operational costs by enabling organizations to plan meals based on actual employee preferences. By ensuring that meal orders are aligned with demand, FoodOptima has enhanced efficiency and contributed to more sustainable business practices.
-                        </p>
-                    </div>
-                </div>
-            </div>
-        </div>
-        
-        <footer class="text-center mt-5">
-            <p>
-                For further support, reach out to us at 
-                <a href="mailto:elaraa.solutions@gmail.com">elaraa.solutions@gmail.com</a>
-            </p>
-        </footer>   
-    </div>
-
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-</body>
-</html> {% endcomment %}
-
-
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -897,11 +218,47 @@
           margin-bottom: 20px; /* Add spacing between stacked items */
         }
       }
+      /* Center-align the text in the Project Overview */
+      .card-text.project-overview {
+        text-align: center;
+      }
+
+      /* Center-align the Key Features list */
+      .card-text.key-features {
+        text-align: center;
+        list-style: none;
+        padding: 0;
+      }
+
+      /* Default styling for the image */
+      .gallery-img {
+        border-radius: 10px;
+        width: 100%; /* Use full width by default */
+        max-width: 900px; /* Limit max size on large screens */
+        height: auto; /* Maintain aspect ratio */
+      }
+
+      /* For screens larger than 1200px */
+      @media (min-width: 1200px) {
+        .gallery-img {
+          width: 1100px;
+          height: 450px;
+        }
+      }
+
+      /* For screens smaller than 768px */
+      @media (max-width: 768px) {
+        .gallery-img {
+          width: 100%; /* Full width for smaller screens */
+          height: auto; /* Maintain aspect ratio */
+        }
+      }
+
     </style>
   </head>
   <body>
-    <!-- Navbar -->
 
+    <!-- Navbar -->
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <a class="navbar-brand font-weight-bold" href="{% url 'main_page' %}">
             <h1 style="font-size: 1.8rem; margin: 0; color: #000000;">FoodOptima</h1>
@@ -946,14 +303,14 @@
               </div>
             </div>
           </div>
-          <div class="col-md-8">
-            <p class="card-text">
+          <div class="col-md-12">
+            <p class="card-text project-overview">
               FoodOptima is a web application designed to streamline meal
               planning in organizations. By gathering employee responses
               regarding their meal requirements for the next working day,
               FoodOptima ensures that meal orders align with actual demand,
               reducing waste and saving costs.
-            </p>
+            </p>            
           </div>
         </div>
       </div>
@@ -984,11 +341,6 @@
             </div>
             <div class="mt-3">
               <p>
-                <!-- Many organizations struggle with over-ordering or under-ordering
-                meals for employees, leading to food waste and increased
-                expenses. Without a reliable system for gathering daily meal
-                requirements, businesses often find themselves wasting resources
-                or failing to meet demand. -->
                 <center>Problem</center>
               </p>
             </div>
@@ -1025,25 +377,37 @@
       </div>
     </section>
 
+    <!-- Gallery Section -->
+    <section class="section">
+      <h2 class="section-title">Gallery</h2>
+      <div class="container text-center">
+        <div id="imageGallery" class="d-flex justify-content-center align-items-center flex-column">
+          {% load static %}
+          <!-- Default image -->
+          <img src="{% static 'images/EmailContent.png' %}" 
+              alt="Email Content" 
+              class="gallery-img mb-3" />
+          <p class="gallery-text">Email Content</p>
+        </div>
+        <button id="nextImageBtn" class="btn btn-primary mt-3" style="border-radius: 50%; padding: 15px;">
+          Next
+        </button>
+      </div>
+    </section>
+
+
     <!-- Key Features -->
-    <section class="section bg-light">
+    <section class="section">
       <h2 class="section-title">Key Features</h2>
       <div class="container">
         <div class="row">
-          <div class="col-md-6">
-            <ul class="card-text">
+          <div class="col-md-12">
+            <ul class="card-text key-features">
               <li>Automated Email Notifications</li>
               <li>Real-Time Data Collection</li>
               <li>Customizable Meal Preferences</li>
               <li>Detailed Reports for Optimization</li>
-            </ul>
-          </div>
-          <div class="col-md-6">
-            <img
-              src="https://via.placeholder.com/600x400.png?text=Features"
-              alt="Features Representation"
-              class="img-fluid rounded"
-            />
+            </ul>            
           </div>
         </div>
       </div>
@@ -1058,6 +422,30 @@
         >
       </p>
     </footer>
+
+    <script>
+      const images = [
+        { src: "{% static 'images/EmailContent.png' %}", text: "Email Content" },
+        { src: "{% static 'images/SummaryMail.png' %}", text: "Summary Mail" },
+        { src: "{% static 'images/ResponsesByDate.png' %}", text: "Responses By Date" },
+        { src: "{% static 'images/ResponsesByMonth.png' %}", text: "Responses By Month" }
+      ];
+    
+      let currentIndex = 0;
+    
+      const galleryImg = document.querySelector(".gallery-img");
+      const galleryText = document.querySelector(".gallery-text");
+      const nextImageBtn = document.getElementById("nextImageBtn");
+    
+      nextImageBtn.addEventListener("click", () => {
+        // Increment index and wrap around if needed
+        currentIndex = (currentIndex + 1) % images.length;
+    
+        // Update the image and text
+        galleryImg.src = images[currentIndex].src;
+        galleryText.textContent = images[currentIndex].text;
+      });
+    </script>    
 
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script>
