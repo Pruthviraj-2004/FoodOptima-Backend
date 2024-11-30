@@ -9,14 +9,14 @@ class Command(BaseCommand):
 
     def handle(self, *args, **kwargs):
         year = 2024
-        month = 11
+        month = 12
 
         # Filter employees based on revised IDs
-        employee_ids = list(range(150, 157)) + [161]  # Includes 68-87, 148, 162
+        # employee_ids = list(range(150, 157)) + [161]  # Includes 68-87, 148, 162
         # employee_ids.remove(76)  # Remove the deleted employee ID
-        employees = Employee.objects.filter(user_id__in=employee_ids)
+        # employees = Employee.objects.filter(user_id__in=employee_ids)
 
-        # employees = Employee.objects.filter(user_id__range=(68, 147))
+        employees = Employee.objects.filter(user_id__range=(68, 147))
 
         for employee in employees:
             # Get the working days for the employee's manager
