@@ -260,8 +260,16 @@
 
     <!-- Navbar -->
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <a class="navbar-brand font-weight-bold" href="{% url 'main_page' %}">
+        {% comment %} <a class="navbar-brand font-weight-bold" href="{% url 'main_page' %}">
             <h1 style="font-size: 1.8rem; margin: 0; color: #000000;">FoodOptima</h1>
+        </a> {% endcomment %}
+        {% load static %}
+        <a class="navbar-brand font-weight-bold" href="{% url 'main_page' %}">
+            <img 
+                src="{% static 'images/food-optima-high-resolution-logo-transparent.png' %}" 
+                alt="FoodOptima Logo" 
+                style="height: 50px;" 
+            />
         </a>
         <button class="navbar-toggler mx-auto" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -378,7 +386,7 @@
     </section>
 
     <!-- Gallery Section -->
-    <section class="section">
+    <section class="section bg-light">
       <h2 class="section-title">Gallery</h2>
       <div class="container text-center">
         <div id="imageGallery" class="d-flex justify-content-center align-items-center flex-column">
@@ -387,7 +395,7 @@
           <img src="{% static 'images/EmailContent.png' %}" 
               alt="Email Content" 
               class="gallery-img mb-3" />
-          <p class="gallery-text">Email Content</p>
+          <h1><p class="gallery-text">Email Content</p></h1>
         </div>
         <button id="nextImageBtn" class="btn btn-primary mt-3" style="border-radius: 50%; padding: 15px;">
           Next
@@ -405,7 +413,6 @@
             <ul class="card-text key-features">
               <li>Automated Email Notifications</li>
               <li>Real-Time Data Collection</li>
-              <li>Customizable Meal Preferences</li>
               <li>Detailed Reports for Optimization</li>
             </ul>            
           </div>
