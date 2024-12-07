@@ -6,7 +6,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 SECRET_KEY = "django-insecure-0&nb^edtaqsjj3l#p4q286oeyuw3^(dgayc0x#isx+&pl06#9p"
 
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['foodoptima.pythonanywhere.com','127.0.0.1']
 
@@ -72,7 +72,7 @@ USE_L10N = True
 
 USE_TZ = True
 
-STATIC_URL = "static/"
+STATIC_URL = "/static/"
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"

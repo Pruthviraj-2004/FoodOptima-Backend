@@ -1282,3 +1282,48 @@ class UpdateManagerEmailAccountView(View):
 
 class AboutUsView(TemplateView):
     template_name = 'email_sender_app/about_us.html'
+      
+class GetEmployeeUserIDView(View):
+    def get(self, request, *args, **kwargs):
+        email = request.GET.get('email')
+        if not email:
+            return JsonResponse({"error": "Email parameter is required."}, status=400)
+
+        all_emails = [emp.email for emp in Employee.objects.all()]
+
+        try:
+            employee = None
+            for emp in Employee.objects.all():
+                if emp.email == email:
+                    employee = emp
+                    break
+
+            if not employee:
+                return JsonResponse({"error": "Employee not found."}, status=404)
+
+            return JsonResponse({"user_id": employee.user_id})
+        except Exception as e:
+            return JsonResponse({"error": str(e)}, status=500)
+               
+class GetEmployeeUserIDByEmail(View):
+    def get(self, request, email, *args, **kwargs):
+        if not email:
+            return JsonResponse({"error": "Email parameter is required."}, status=400)
+
+        all_emails = [emp.email for emp in Employee.objects.all()]
+        print("Decrypted emails in database:", all_emails)
+
+        try:
+            employee = None
+            for emp in Employee.objects.all():
+                if emp.email == email:
+                    employee = emp
+                    break
+
+            if not employee:
+                return JsonResponse({"error": "Employee not found."}, status=404)
+
+            return JsonResponse({"user_id": employee.user_id})
+        except Exception as e:
+            return JsonResponse({"error": str(e)}, status=500)
+                       

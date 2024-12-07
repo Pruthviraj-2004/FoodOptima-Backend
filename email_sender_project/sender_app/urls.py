@@ -46,6 +46,8 @@ urlpatterns = [
     path('export-month-summary/', ExportMonthlySummaryView.as_view(), name='export_month_summary'),
 
     path('about-us/', AboutUsView.as_view(), name='about_us'),
+    path('employee/user-id/', GetEmployeeUserIDView.as_view(), name='get_employee_user_id'),
+    path('get-employee-id/<str:email>/', GetEmployeeUserIDByEmail.as_view(), name='get_employee_user_id_by_email'),
 
 
     path('sssend-email/', send_outlook_email, name='send_email'),
