@@ -48,6 +48,7 @@ urlpatterns = [
     path('about-us/', AboutUsView.as_view(), name='about_us'),
     path('employee/user-id/', GetEmployeeUserIDView.as_view(), name='get_employee_user_id'),
     path('get-employee-id/<str:email>/', GetEmployeeUserIDByEmail.as_view(), name='get_employee_user_id_by_email'),
+    path('get-working-days/<int:employee_id>/', GetWorkingDaysForCurrentMonth.as_view(), name='get_working_days'),
 
 
     path('sssend-email/', send_outlook_email, name='send_email'),

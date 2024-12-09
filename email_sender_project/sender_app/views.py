@@ -1326,4 +1326,29 @@ class GetEmployeeUserIDByEmail(View):
             return JsonResponse({"user_id": employee.user_id})
         except Exception as e:
             return JsonResponse({"error": str(e)}, status=500)
-                       
+
+class GetWorkingDaysForCurrentMonth(View):
+    def get(self, request, employee_id, *args, **kwargs):
+        try:
+            employee = Employee.objects.get(user_id=employee_id)
+            
+            manager = employee.manager
+            
+            today = timezone.now()
+            current_month = today.month
+            current_year = today.year
+            
+            working_days = WorkingDays.objects.filter(manager=manager, month=current_month, year=current_year).first()
+            
+            if not working_days:
+                return JsonResponse({"error": "Working days not found for the current month."}, status=404)
+
+            return JsonResponse({
+                "working_days": working_days.days
+            })
+        
+        except Employee.DoesNotExist:
+            return JsonResponse({"error": "Employee not found."}, status=404)
+        except Exception as e:
+            return JsonResponse({"error": str(e)}, status=500)
+
